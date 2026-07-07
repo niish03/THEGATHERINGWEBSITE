@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>The Gathering Conference Center | Premier Event & Banquet Venue in Tupelo, MS</title>
+  <meta name="description" content="Where Southern charm meets modern elegance. The Gathering Conference Center offers 4 versatile rooms, premier in-house catering, and space for up to 300 guests in Tupelo, MS. Check date availability online.">
+  <meta name="keywords" content="conference center Tupelo MS, wedding venue Tupelo Mississippi, event space Tupelo, banquet hall MS, party venue Tupelo, business meeting space MS">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="The Gathering Conference Center | Event & Banquet Venue in Tupelo, MS">
+  <meta property="og:description" content="Where Southern charm meets modern elegance. Host weddings, conferences, banquets, and community events in our flexible 4-room venue.">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:type" content="website">
+  
+  <!-- Style Sheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Skip to main content link for ADA/WCAG compliance -->
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+
+  <!-- ==========================================
+       STICKY HEADER / NAVIGATION BAR
+       ========================================== -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo-wrapper" id="nav-logo" aria-label="The Gathering Home">
+        <img class="logo-img" src="assets/THE%20GATHERING%20LOGO.png" alt="The Gathering Conference Center Logo">
+      </a>
+      
+      <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+        <div class="nav-links">
+          <a href="#about" class="nav-link">About Us</a>
+          <a href="#venue" class="nav-link">Our Venue</a>
+          <a href="#catering" class="nav-link">Catering</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:855-340-0365" class="phone-link" aria-label="Call us toll-free">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <span>855-340-0365</span>
+        </a>
+        <a href="#hero" class="btn btn-primary">Check Availability</a>
+      </div>
+
+      <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main content landmark for accessibility -->
+  <main id="main-content" tabindex="-1">
+
+  <!-- ==========================================
+       HERO SECTION & 3-STEP BOOKING WIDGET
+       ========================================== -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-tagline">Welcome to Tupelo's Premier Venue</div>
+        <h1 class="hero-title">Where Every Event Brings People Together</h1>
+        <p class="hero-desc">Experience an unforgettable gathering where Southern charm meets modern elegance. The perfect space designed for weddings, banquets, and corporate conferences.</p>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">300</span>
+            <span class="stat-label">Max Capacity</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">4</span>
+            <span class="stat-label">Flexible Rooms</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">250+</span>
+            <span class="stat-label">Free Spaces</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">Full</span>
+            <span class="stat-label">A/V Support</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Widget Card -->
+      <div class="booking-widget-container" id="booking-widget">
+        <div class="booking-widget">
+          <div class="booking-widget-header">
+            <h3 class="booking-widget-title">Check Date Availability</h3>
+            <p class="booking-widget-subtitle">Complete 3 simple steps for a custom quote & private tour.</p>
+          </div>
+
+          <!-- Progress Indicator -->
+          <div class="widget-progress-container">
+            <div class="widget-progress-bar" id="widget-progress-percent"></div>
+            <div class="widget-steps">
+              <div class="widget-step-dot active" data-step="1">1</div>
+              <div class="widget-step-dot" data-step="2">2</div>
+              <div class="widget-step-dot" data-step="3">3</div>
+            </div>
+          </div>
+
+          <!-- Steps Wrapper -->
+          <div class="step-panels-wrapper">
+            <!-- STEP 1: EVENT TYPE -->
+            <div class="step-panel active" data-step="1">
+              <span class="widget-label">Step 1: Select Event Type</span>
+              <div class="event-type-grid">
+                <div class="event-type-card" data-value="wedding">
+                  <!-- Ring Icon -->
+                  <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-5.83 15.86l-1.39 3.01a1 1 0 0 0 1.44 1.25l3.14-1.92A9 9 0 1 0 12 2zm0 15a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <span>Wedding</span>
+                </div>
+                <div class="event-type-card" data-value="corporate">
+                  <!-- Briefcase Icon -->
+                  <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <span>Corporate</span>
+                </div>
+                <div class="event-type-card" data-value="banquet">
+                  <!-- Cloche Icon -->
+                  <svg viewBox="0 0 24 24"><path d="M2 20h20M12 4a2 2 0 0 1 2 2h-4a2 2 0 0 1 2-2zM3 16a9 9 0 0 1 18 0v2H3v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <span>Banquet</span>
+                </div>
+                <div class="event-type-card" data-value="party">
+                  <!-- Balloon/Cocktail Icon -->
+                  <svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <span>Social Party</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: GUESTS & SPACE -->
+            <div class="step-panel" data-step="2">
+              <span class="widget-label">Step 2: Guest Count & Space <span class="guest-output" id="guest-val">50</span></span>
+              
+              <div class="guest-slider-group">
+                <input type="range" min="10" max="300" value="50" class="guest-slider" id="widget-guests" aria-label="Estimated guest count">
+              </div>
+
+              <span class="widget-label">Preferred Room Configuration (Optional)</span>
+              <div class="room-select-grid">
+                <div class="room-select-card" data-value="Room A" data-max="60">Room A (60 Max)</div>
+                <div class="room-select-card" data-value="Room B" data-max="110">Room B (110 Max)</div>
+                <div class="room-select-card" data-value="Room C" data-max="50">Room C (50 Max)</div>
+                <div class="room-select-card" data-value="Room D" data-max="80">Room D (80 Max)</div>
+                <div class="room-select-card" data-value="Combined" data-max="300">Combined (300 Max)</div>
+              </div>
+            </div>
+
+            <!-- STEP 3: CONTACT & CONFIRMATION -->
+            <div class="step-panel" data-step="3">
+              <span class="widget-label">Step 3: Contact & Preferred Date</span>
+              
+              <div class="widget-form-group">
+                <input type="date" class="widget-input" id="widget-date" aria-label="Preferred Event Date" required>
+              </div>
+              <div class="widget-form-group">
+                <input type="text" class="widget-input" id="widget-name" placeholder="Full Name" aria-label="Your name" required>
+              </div>
+              <div class="widget-form-group">
+                <input type="email" class="widget-input" id="widget-email" placeholder="Email Address" aria-label="Your email" required>
+              </div>
+              <div class="widget-form-group">
+                <input type="tel" class="widget-input" id="widget-phone" placeholder="Phone Number" aria-label="Your phone number" required>
+                <div class="widget-sms-disclosure">
+                  By providing your phone number, you consent to receive text messages (SMS) from The Gathering Conference Center regarding your event request. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-of-use.html" target="_blank">Terms of Use</a>.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation buttons -->
+          <div class="widget-nav-buttons">
+            <button class="btn btn-secondary" id="widget-prev-btn">Back</button>
+            <button class="btn btn-primary" id="widget-next-btn">Next Step →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       ABOUT US SECTION (NEW)
+       ========================================== -->
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <div class="about-content">
+        <h2 class="section-title" style="text-align:left;">About The Gathering</h2>
+        <h3 style="font-family:var(--font-headings); font-size:1.8rem; line-height:1.3; font-weight:600; color:var(--text-dark);">Designed for comfort, connection, and memorable gatherings.</h3>
+        <p>Nestled in the heart of Tupelo, Mississippi, The Gathering Conference Center is where Southern charm meets modern elegance. Whether you're planning a wedding, corporate meeting, conference, private celebration, or community event, our beautifully designed venue provides the perfect setting for unforgettable occasions.</p>
+        <p>With flexible event spaces, upscale amenities, and a dedicated team committed to exceptional service, we make it easy to bring your vision to life. From intimate gatherings to large celebrations, we're here to ensure every detail is thoughtfully planned and every guest feels welcome.</p>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-title">Our Philosophy</div>
+        <p class="about-badge-desc">Host your next event at The Gathering—where timeless elegance and genuine hospitality come together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION B: INTERACTIVE VENUE SHOWCASE
+       ========================================== -->
+  <section class="section section-alt" id="venue">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Our Venue Spaces</h2>
+        <p class="section-subtitle">Our venue includes four spacious rooms separated by sliding sound-resistant partition dividers. Rooms may be rented individually or combined depending on event size, layout, and availability.</p>
+      </div>
+
+      <div class="room-showcase-grid">
+        <!-- Left Column: Floor Plan SVG & Dynamic Slider -->
+        <div class="room-visuals-column">
+          <!-- Interactive SVG Floor Plan -->
+          <div class="floorplan-container">
+            <svg class="floorplan-svg" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+              <g id="floorplan-group">
+                <!-- Room A -->
+                <rect id="fp-a" class="fp-room" x="5" y="5" width="167" height="240" rx="4" />
+                <text class="fp-room-label" x="88" y="115">Room A</text>
+                <text class="fp-room-sublabel" x="88" y="135">40 x 60 ft</text>
+
+                <!-- Divider AB -->
+                <line id="partition-ab" class="fp-partition" x1="172" y1="5" x2="172" y2="245" />
+
+                <!-- Room B -->
+                <rect id="fp-b" class="fp-room" x="172" y="5" width="258" height="240" rx="4" />
+                <text class="fp-room-label" x="301" y="115">Room B</text>
+                <text class="fp-room-sublabel" x="301" y="135">62 x 60 ft</text>
+
+                <!-- Divider BC -->
+                <line id="partition-bc" class="fp-partition" x1="430" y1="5" x2="430" y2="245" />
+
+                <!-- Room C -->
+                <rect id="fp-c" class="fp-room" x="430" y="5" width="146" height="240" rx="4" />
+                <text class="fp-room-label" x="503" y="115">Room C</text>
+                <text class="fp-room-sublabel" x="503" y="135">35 x 60 ft</text>
+
+                <!-- Divider CD -->
+                <line id="partition-cd" class="fp-partition" x1="576" y1="5" x2="576" y2="245" />
+
+                <!-- Room D -->
+                <rect id="fp-d" class="fp-room" x="576" y="5" width="219" height="240" rx="4" />
+                <text class="fp-room-label" x="685" y="115">Room D</text>
+                <text class="fp-room-sublabel" x="685" y="135">55 x 60 ft</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Room Photo Slider (Bottom Left) -->
+          <div class="room-slider-container" id="room-slider">
+            <div class="slider-wrapper">
+              <button class="slider-arrow prev" id="slider-prev-btn" aria-label="Previous image">❮</button>
+              <div class="slider-track">
+                <img id="slider-img" src="assets/room_a_meeting.jpg" alt="Selected Room Configuration">
+              </div>
+              <button class="slider-arrow next" id="slider-next-btn" aria-label="Next image">❯</button>
+            </div>
+            <div class="slider-info">
+              <div class="slider-caption" id="slider-caption">Room A - Boardroom Setup</div>
+              <div class="slider-dots" id="slider-dots">
+                <!-- Dots will be dynamically generated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room Details & Selectors -->
+        <div class="room-details-panel">
+          <div class="room-selector-tabs">
+            <button class="room-tab-btn active" data-room="a">Room A</button>
+            <button class="room-tab-btn" data-room="b">Room B</button>
+            <button class="room-tab-btn" data-room="c">Room C</button>
+            <button class="room-tab-btn" data-room="d">Room D</button>
+            <button class="room-tab-btn" data-room="combined">Combined</button>
+          </div>
+
+          <!-- Room A Card -->
+          <div class="room-info-card active" id="info-a">
+            <div class="room-header">
+              <h3 class="room-title">Room A</h3>
+              <div class="room-meta">
+                <span class="room-meta-item">📏 Dimensions: 40 × 60 ft</span>
+                <span class="room-meta-item">✨ Capacity: Up to 60 Guests</span>
+              </div>
+            </div>
+            <div class="room-spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Square Footage</div>
+                <div class="spec-value">2,400 sq. ft.</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Ideal Layouts</div>
+                <div class="spec-value">Classroom, Boardroom, Banquet</div>
+              </div>
+            </div>
+            <p class="room-description">Great for meetings, private gatherings, and smaller events. Room A offers an intimate, highly focused setting equipped with direct access to power terminals.</p>
+            <div class="capacity-alert">
+              <div class="capacity-alert-title">Sound-Reducing Sliding Dividers</div>
+              <div class="capacity-alert-desc">Separated by acoustic panel dividers to guarantee privacy from neighboring events. Slide them open to merge with Room B.</div>
+            </div>
+          </div>
+
+          <!-- Room B Card -->
+          <div class="room-info-card" id="info-b">
+            <div class="room-header">
+              <h3 class="room-title">Room B</h3>
+              <div class="room-meta">
+                <span class="room-meta-item">📏 Dimensions: 62 × 60 ft</span>
+                <span class="room-meta-item">✨ Capacity: Up to 110 Guests</span>
+              </div>
+            </div>
+            <div class="room-spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Square Footage</div>
+                <div class="spec-value">3,720 sq. ft.</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Ideal Layouts</div>
+                <div class="spec-value">Theater, Reception, Banquet</div>
+              </div>
+            </div>
+            <p class="room-description">A spacious option for larger setups and special occasions. Room B provides a grand feel, making it the perfect setting for upscale receptions and social dinners.</p>
+            <div class="capacity-alert">
+              <div class="capacity-alert-title">Need More Space?</div>
+              <div class="capacity-alert-desc">Combine Room B with Rooms A and C by sliding back the sound-reducing partition walls to host larger dinner parties.</div>
+            </div>
+          </div>
+
+          <!-- Room C Card -->
+          <div class="room-info-card" id="info-c">
+            <div class="room-header">
+              <h3 class="room-title">Room C</h3>
+              <div class="room-meta">
+                <span class="room-meta-item">📏 Dimensions: 35 × 60 ft</span>
+                <span class="room-meta-item">✨ Capacity: Up to 50 Guests</span>
+              </div>
+            </div>
+            <div class="room-spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Square Footage</div>
+                <div class="spec-value">2,100 sq. ft.</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Ideal Layouts</div>
+                <div class="spec-value">Training Seminars, Small Showers</div>
+              </div>
+            </div>
+            <p class="room-description">Ideal for focused events, trainings, and celebrations. Room C offers a cozy, highly functional space for baby showers, training seminars, or meetings.</p>
+            <div class="capacity-alert">
+              <div class="capacity-alert-title">Modular Options</div>
+              <div class="capacity-alert-desc">Operates independently or easily integrates with adjacent rooms for buffet line setups.</div>
+            </div>
+          </div>
+
+          <!-- Room D Card -->
+          <div class="room-info-card" id="info-d">
+            <div class="room-header">
+              <h3 class="room-title">Room D</h3>
+              <div class="room-meta">
+                <span class="room-meta-item">📏 Dimensions: 55 × 60 ft</span>
+                <span class="room-meta-item">✨ Capacity: Up to 80 Guests</span>
+              </div>
+            </div>
+            <div class="room-spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Square Footage</div>
+                <div class="spec-value">3,300 sq. ft.</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Ideal Layouts</div>
+                <div class="spec-value">Banquet, Cocktail Party, Dance</div>
+              </div>
+            </div>
+            <p class="room-description">Flexible space for banquets, parties, and community events. Room D features high power capacity and an layout adaptable for dance floors and music.</p>
+            <div class="capacity-alert">
+              <div class="capacity-alert-title">Acoustic Separation</div>
+              <div class="capacity-alert-desc">Seals tightly off from Room C, providing an excellent buffer zone for private celebrations.</div>
+            </div>
+          </div>
+
+          <!-- Combined Room Card -->
+          <div class="room-info-card" id="info-combined">
+            <div class="room-header">
+              <h3 class="room-title">Combined Grand Ballroom</h3>
+              <div class="room-meta">
+                <span class="room-meta-item">📏 Dimensions: 192 × 60 ft</span>
+                <span class="room-meta-item">✨ Capacity: Up to 300 Guests</span>
+              </div>
+            </div>
+            <div class="room-spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Square Footage</div>
+                <div class="spec-value">11,520 sq. ft.</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Ideal Layouts</div>
+                <div class="spec-value">Grand Banquet, Exhibition, Gala</div>
+              </div>
+            </div>
+            <p class="room-description">When all three acoustic sliding partition dividers are retracted, our venue transforms into a single, breathtaking grand ballroom. It accommodates large-scale weddings, galas, and regional expos.</p>
+            <div class="capacity-alert" style="border-left-color: var(--success); background-color: rgba(16, 185, 129, 0.08);">
+              <div class="capacity-alert-title" style="color: var(--success);">All Dividers Retracted</div>
+              <div class="capacity-alert-desc">Provides a completely seamless flow across 11,520 sq. ft. of pristine, event-ready space.</div>
+            </div>
+          </div>
+
+          <a href="#hero" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Reserve This Configuration</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       VENUE PREVIEW GALLERY (NEW)
+       ========================================== -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">See The Space Come To Life</h2>
+        <p class="section-subtitle">Browse images of actual configurations and layout possibilities. Tap any image to view larger.</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" data-image="assets/hero.jpg" data-caption="Grand Ballroom Setup - Perfect for elegant wedding banquets and large celebrations.">
+          <img src="assets/hero.jpg" alt="Grand Ballroom reception setup with warm lighting">
+          <div class="gallery-overlay">
+            <span class="gallery-title">Grand Ballroom Setup</span>
+            <span class="gallery-sub">Social / Banquet Layout</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-image="assets/gallery_corp.jpg" data-caption="Corporate Seminar - Clean seating rows, modern lighting, and built-in screens.">
+          <img src="assets/gallery_corp.jpg" alt="Corporate meeting setup with chairs and display board">
+          <div class="gallery-overlay">
+            <span class="gallery-title">Corporate Seminar</span>
+            <span class="gallery-sub">Business / Meeting Layout</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-image="assets/gallery_wedding.jpg" data-caption="Upscale Table Settings - Showcasing detailed gold flatware, white roses, and candles.">
+          <img src="assets/gallery_wedding.jpg" alt="Wedding table set with flowers, candles, and menu cards">
+          <div class="gallery-overlay">
+            <span class="gallery-title">Linens & Centerpieces</span>
+            <span class="gallery-sub">Social Details</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION D: CATERING (NEW)
+       ========================================== -->
+  <section class="section section-alt" id="catering">
+    <div class="container">
+      <div class="catering-showcase">
+        <div class="catering-image-wrapper">
+          <img src="assets/catering.jpg" alt="Gourmet in-house catering at The Gathering" class="catering-image">
+          <div class="catering-image-overlay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Exclusive In-House Service</span>
+          </div>
+        </div>
+        <div class="catering-content">
+          <span class="catering-badge-title">Gourmet Dining Experience</span>
+          <h2 class="catering-main-title">Culinary excellence designed to elevate your event.</h2>
+          <p class="catering-text">Our culinary team crafts exquisite, custom-tailored menus for any occasion—from multi-course elegant plated dinners to grand, expansive buffets. To ensure immaculate food safety, seamless service, and uncompromising quality, we strictly provide all catering in-house.</p>
+          <ul class="catering-list-items">
+            <li class="catering-list-item">
+              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span>Fully customizable menus spanning diverse global cuisines</span>
+            </li>
+            <li class="catering-list-item">
+              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span>Professional, licensed in-house bartenders and waitstaff</span>
+            </li>
+            <li class="catering-list-item">
+              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span>Adherence to the highest safety and hygiene standards</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION C: TRUST PILLARS & AMENITIES GRID
+       ========================================== -->
+  <section class="section" id="amenities">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">World-Class Venue Amenities</h2>
+        <p class="section-subtitle">We handle the foundational details so you can focus entirely on your guests. Explore the amenities included with every rental reservation.</p>
+      </div>
+
+      <div class="amenities-grid">
+        <!-- Amenity 1 -->
+        <div class="amenity-card">
+          <div class="amenity-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+          </div>
+          <h3 class="amenity-title">Flexible Spaces</h3>
+          <p class="amenity-desc">4 customizable rooms with soundproof partition dividers. Configure the layout to support events from small training sessions to 300-guest galas.</p>
+        </div>
+
+        <!-- Amenity 2 -->
+        <div class="amenity-card">
+          <div class="amenity-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="amenity-title">In-House Catering</h3>
+          <p class="amenity-desc">Custom menu options crafted specifically for your event. <em>Note: outside catering is not permitted to ensure safety and quality.</em></p>
+        </div>
+
+        <!-- Amenity 3 -->
+        <div class="amenity-card">
+          <div class="amenity-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h3 class="amenity-title">Ample Parking</h3>
+          <p class="amenity-desc">250 to 300 complimentary on-site parking spaces, ensuring easy arrival and departure for all guests.</p>
+        </div>
+
+        <!-- Amenity 4 -->
+        <div class="amenity-card">
+          <div class="amenity-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a11 11 0 0 0-11 11 11.08 11.08 0 0 0 2.24 6.7L1.44 21.8a1 1 0 0 0 1.25 1.25l3.1-1.8A11 11 0 1 0 12 1z"/><path d="M12 5a7 7 0 0 1 7 7"/></svg>
+          </div>
+          <h3 class="amenity-title">Complete A/V Support</h3>
+          <p class="amenity-desc">Complimentary high-speed Wi-Fi, projection equipment, convenient power access, and microphones in every ballroom.</p>
+        </div>
+
+        <!-- Amenity 5 -->
+        <div class="amenity-card">
+          <div class="amenity-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="amenity-title">Flexible Rentals</h3>
+          <p class="amenity-desc">Choose between highly competitive hourly booking rates or convenient, full-day packages to match your schedule.</p>
+        </div>
+
+        <!-- Amenity 6 -->
+        <div class="amenity-card">
+          <div class="amenity-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+          </div>
+          <h3 class="amenity-title">Accessibility</h3>
+          <p class="amenity-desc">Fully ADA accessible building structures, restroom amenities, and entryways to welcome every attendee comfortably.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION D: EVENT POSSIBILITIES & ADD-ONS
+       ========================================== -->
+  <section class="section section-alt" id="possibilities">
+    <div class="container possibilities-container">
+      <div>
+        <h2 class="section-title" style="text-align: left;">Event Possibilities</h2>
+        <p class="contact-desc">Host your next meeting, conference, wedding, or celebration with confidence. Our modular ballrooms adapt to any format.</p>
+        
+        <div class="event-possibilities-showcase">
+          <!-- Corporate -->
+          <div class="possibility-card">
+            <div class="possibility-img" style="background-image: linear-gradient(rgba(15,23,42,0.4), rgba(15,23,42,0.4)), url('assets/gallery_corp.jpg');"></div>
+            <div class="possibility-content">
+              <h3 class="possibility-title">Corporate Events</h3>
+              <p class="possibility-desc">Ideal for Meetings, Conferences, Workshops, Training Sessions, Seminars, and product launches.</p>
+              <div class="possibility-tags">
+                <span class="possibility-tag">Meetings</span>
+                <span class="possibility-tag">Conferences</span>
+                <span class="possibility-tag">Workshops</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="possibility-card">
+            <div class="possibility-img" style="background-image: linear-gradient(rgba(15,23,42,0.4), rgba(15,23,42,0.4)), url('assets/hero.jpg'); background-position: bottom;"></div>
+            <div class="possibility-content">
+              <h3 class="possibility-title">Social Celebrations</h3>
+              <p class="possibility-desc">Host Weddings, Receptions, Showers, Anniversaries, Birthday Celebrations, and Holiday Parties.</p>
+              <div class="possibility-tags">
+                <span class="possibility-tag">Weddings</span>
+                <span class="possibility-tag">Receptions</span>
+                <span class="possibility-tag">Showers</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community -->
+          <div class="possibility-card">
+            <div class="possibility-img" style="background-image: linear-gradient(rgba(15,23,42,0.4), rgba(15,23,42,0.4)), url('assets/gallery_wedding.jpg');"></div>
+            <div class="possibility-content">
+              <h3 class="possibility-title">Community Events</h3>
+              <p class="possibility-desc">A spacious hall for Church Events, Fundraisers, Family Reunions, and Non-profit Gala dinners.</p>
+              <div class="possibility-tags">
+                <span class="possibility-tag">Church Events</span>
+                <span class="possibility-tag">Fundraisers</span>
+                <span class="possibility-tag">Reunions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add-ons Panel -->
+      <div class="addons-panel">
+        <div class="addons-header">
+          <h3 class="addons-title">Available Add-Ons</h3>
+          <p class="addons-desc">Choose from our list of available accessories. Click on the items below to include them in your query.</p>
+        </div>
+
+        <div class="addons-list">
+          <div class="addon-item" data-name="tables-chairs">
+            <div class="addon-checkbox">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="addon-details">
+              <span class="addon-name">Tables and chairs</span>
+              <span class="addon-sub">Round dinner tables, long banquet tables, and chairs included</span>
+            </div>
+          </div>
+
+          <div class="addon-item" data-name="av-gear">
+            <div class="addon-checkbox">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="addon-details">
+              <span class="addon-name">Audio/video equipment</span>
+              <span class="addon-sub">Handheld microphones, projection units, screens, and podium A/V</span>
+            </div>
+          </div>
+
+          <div class="addon-item" data-name="decor-setup">
+            <div class="addon-checkbox">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="addon-details">
+              <span class="addon-name">Decoration setup</span>
+              <span class="addon-sub">Aesthetic linens, table runner sets, uplighting options</span>
+            </div>
+          </div>
+
+          <div class="addon-item" data-name="catering-staff">
+            <div class="addon-checkbox">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="addon-details">
+              <span class="addon-name">Catering support</span>
+              <span class="addon-sub">Buffet operators, servers, and beverage hosts</span>
+            </div>
+          </div>
+
+          <div class="addon-item" data-name="cleaning">
+            <div class="addon-checkbox">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="addon-details">
+              <span class="addon-name">Cleaning</span>
+              <span class="addon-sub">Post-event cleaning, trash removal, and room resets</span>
+            </div>
+          </div>
+
+          <div class="addon-item" data-name="security">
+            <div class="addon-checkbox">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="addon-details">
+              <span class="addon-name">Security</span>
+              <span class="addon-sub">On-site professional security guards for peace of mind</span>
+            </div>
+          </div>
+        </div>
+        
+        <a href="#contact" class="btn btn-primary" style="width: 100%; margin-top: 30px;">Apply to Availability Request</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION E: CATEGORIZED FAQ ACCORDION
+       ========================================== -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Get official answers to booking, catering, amenities, and venue policy questions.</p>
+      </div>
+
+      <div class="faq-container">
+        <!-- FAQ Categories -->
+        <div class="faq-categories">
+          <button class="faq-cat-btn active" data-category="booking">Booking & Reservations</button>
+          <button class="faq-cat-btn" data-category="spaces">Venue & Event Spaces</button>
+          <button class="faq-cat-btn" data-category="catering">Food & Catering</button>
+          <button class="faq-cat-btn" data-category="policies">Amenities & Policies</button>
+        </div>
+
+        <div class="faq-groups-wrapper">
+          <!-- GROUP 1: BOOKING -->
+          <div class="faq-group active" id="faq-group-booking">
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>How do I secure my event date?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Start by submitting an inquiry through our website or giving us a call. Our team will contact you to discuss your event, availability, and next steps.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>How far in advance should I book?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Popular dates fill up quickly, so we recommend booking as early as possible. Contact us to discuss your preferred date.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can I schedule a private tour?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Absolutely! We'd be happy to show you around. Contact us to arrange a tour at a convenient time.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Is a deposit required to secure my event date?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. A deposit is required to reserve your event date. Our team will explain the booking process and payment schedule.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>What payment methods are accepted?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    We accept several convenient payment methods. Contact us for current payment options.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP 2: VENUE SPACES -->
+          <div class="faq-group" id="faq-group-spaces">
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>What types of events can be hosted?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Our venue is ideal for weddings, receptions, corporate meetings, conferences, banquets, birthday celebrations, showers, church events, family reunions, holiday parties, and community gatherings.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>What is the capacity of the venue?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Our flexible event spaces can accommodate both small and large groups. We'll recommend the best room configuration based on your event.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can I rent multiple ballrooms?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes! You can reserve a single ballroom or combine multiple ballrooms for larger events.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Are the ballrooms separated by dividers?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. Our four ballrooms are separated by sound-reducing sliding partition dividers, allowing us to create larger event spaces when needed.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>What seating arrangements are available?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Absolutely. We offer a variety of room configurations, including banquet, classroom, theater, conference, and reception-style seating.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Are tables and chairs included in the rental?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Tables and chairs are available with your rental as an add-on. Our team can discuss layout options during planning.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can I rent the venue by the hour or full day?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes! We offer both hourly and full-day rental options, depending on your event type, space requirements, and availability. Our team will help you choose the rental option that best fits your event.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can multiple events be hosted at the same time?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. Our four ballrooms allow multiple events to be hosted simultaneously while maintaining privacy with sound-reducing sliding partition dividers.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can I purchase additional hours for my event?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Additional rental time may be available depending on the venue schedule. Please discuss your needs with our team in advance.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP 3: CATERING -->
+          <div class="faq-group" id="faq-group-catering">
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Do you offer in-house catering?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes! We offer in-house catering with a variety of menu options to fit your event.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can we bring an outside caterer?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    No. To help ensure food safety, maintain consistent quality, and provide the best possible experience for all guests, outside catering is not permitted. Our in-house catering team offers a variety of menu options to suit different event styles and dietary preferences.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Are we allowed to bring our own desserts?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Please speak with our team regarding specialty items or desserts, and we'll be happy to discuss available options.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>What are the rules regarding alcohol service?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Outside alcohol is not permitted, but Alcohol service is available in house to book depending on your event and applicable regulations. Please contact us for details.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP 4: POLICIES -->
+          <div class="faq-group" id="faq-group-policies">
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Is Wi-Fi available at the venue?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes, complimentary Wi-Fi is available throughout the venue.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Do you provide audio/visual equipment?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Microphones and Projection equipments are available in every ballroom. Contact us for more information.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Do you have a stage or dance floor?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    While we don't offer an elevated stage, there is ample space for a dance floor. Our team can help you determine the best layout for your event.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Is parking available on site?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. Complimentary on-site parking (250-300 spaces) is available for you and your guests.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Is the venue ADA accessible?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. The Gathering Conference Center is designed to accommodate guests with accessibility needs.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Are there hotel accommodations nearby?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. Several hotels and motels are conveniently located near our venue for out-of-town guests. Ask us about nearby accommodations and any available discounted rates.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Is smoking permitted inside the venue?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Not Inside the building. Smoking is only permitted in designated outdoor areas.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>What is your cancellation policy?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    Yes. Our cancellation policy will be reviewed with you during the booking process.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question-btn">
+                <span>Can I update my booking after it is confirmed?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  <div class="faq-answer-text">
+                    We understand plans can change. Contact our team, and we'll do our best to accommodate updates based on availability.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION F: CONTACT SECTION & LEAD CAPTURE
+       ========================================== -->
+  <section class="section section-alt" id="contact">
+    <div class="container contact-layout">
+      <!-- Contact Info Panel -->
+      <div class="contact-info-panel">
+        <div>
+          <h2 class="contact-title">Start Planning Your Gathering Today</h2>
+          <p class="contact-desc">Share a few event details and our team will reach out to discuss availability, rental options, catering, and next steps.</p>
+        </div>
+
+        <div class="contact-details-list">
+          <!-- Detail item: Address -->
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-detail-content">
+              <span class="contact-detail-label">Physical Address</span>
+              <span class="contact-detail-value">852A N Gloster St, Tupelo, MS 38804</span>
+              <a href="https://www.google.com/maps/search/?api=1&query=852A%20N%20Gloster%20St%2C%20Tupelo%2C%20MS%2038804" target="_blank" rel="noopener noreferrer" class="directions-link">
+                <span>📍 Get Directions (Google Maps)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Detail item: Phone -->
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="contact-detail-content">
+              <span class="contact-detail-label">Call Toll-Free</span>
+              <span class="contact-detail-value"><a href="tel:855-340-0365">855-340-0365</a></span>
+            </div>
+          </div>
+
+          <!-- Detail item: Email -->
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-detail-content">
+              <span class="contact-detail-label">General Inquiries</span>
+              <span class="contact-detail-value"><a href="mailto:info@thegathering365.com">info@thegathering365.com</a></span>
+            </div>
+          </div>
+
+          <!-- Detail item: Hours -->
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="contact-detail-content">
+              <span class="contact-detail-label">Business Hours</span>
+              <span class="contact-detail-value">Monday – Friday: 8:00 AM – 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Lead Capture Form Panel -->
+      <div class="contact-form-panel">
+        <h3 class="form-title">Send a Quick Inquiry</h3>
+        <p class="form-subtitle">Your request will be sent to info@thegathering365.com.</p>
+        
+        <form id="lead-capture-form">
+          <div class="form-grid">
+            <div>
+              <label for="contact-name" class="form-label">Full Name *</label>
+              <input type="text" id="contact-name" class="form-input" placeholder="John Doe" required>
+            </div>
+            <div>
+              <label for="contact-email" class="form-label">Email Address *</label>
+              <input type="email" id="contact-email" class="form-input" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group-full">
+              <label for="contact-phone" class="form-label">Phone Number *</label>
+              <input type="tel" id="contact-phone" class="form-input" placeholder="Phone Number" required>
+              <div class="widget-sms-disclosure">
+                By providing your phone number, you consent to receive text messages (SMS) from The Gathering Conference Center regarding your event request. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-of-use.html" target="_blank">Terms of Use</a>.
+              </div>
+            </div>
+            <div>
+              <label for="contact-event-type" class="form-label">Event Category *</label>
+              <select id="contact-event-type" class="form-input" required>
+                <option value="" disabled selected>Select Category</option>
+                <option value="corporate">Corporate (Meeting / Seminar)</option>
+                <option value="wedding">Social (Wedding / Reception)</option>
+                <option value="banquet">Banquet / Dinner Celebration</option>
+                <option value="community">Community / Non-Profit</option>
+                <option value="other">Other Unique Celebration</option>
+              </select>
+            </div>
+            <div>
+              <label for="contact-guests" class="form-label">Estimated Guests *</label>
+              <select id="contact-guests" class="form-input" required>
+                <option value="" disabled selected>Select Guest Count</option>
+                <option value="under50">Under 50</option>
+                <option value="50-100">50 - 100</option>
+                <option value="100-200">100 - 200</option>
+                <option value="200-300">200 - 300</option>
+                <option value="300+">300+</option>
+              </select>
+            </div>
+            <div>
+              <label for="contact-event-date" class="form-label">Preferred Event Date (Optional)</label>
+              <input type="date" id="contact-event-date" class="form-input">
+            </div>
+            <div class="form-group-full">
+              <label for="contact-message" class="form-label">Tell Us About Your Event (Optional)</label>
+              <textarea id="contact-message" class="form-input" placeholder="Please list preferred layout setups, menu questions, or any special requests here..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER CTA PANEL
+       ========================================== -->
+  <section class="footer-cta">
+    <div class="container footer-cta-container">
+      <h2 class="footer-cta-title">Where Tupelo Comes Together.</h2>
+      <p class="footer-cta-desc">Host your next meeting, conference, wedding, or celebration with confidence.</p>
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="#hero" class="btn btn-primary">Check Availability</a>
+        <a href="tel:855-340-0365" class="btn btn-secondary">📞 Call 855-340-0365</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ==========================================
+       MAIN FOOTER & LEGAL
+       ========================================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="logo-wrapper footer-logo">
+          <img class="logo-img" src="assets/THE%20GATHERING%20LOGO%20-%20WHITE.png" alt="The Gathering Conference Center Logo">
+        </div>
+        <nav class="footer-nav" aria-label="Footer Navigation">
+          <a href="#about" class="footer-nav-link">About Us</a>
+          <a href="#venue" class="footer-nav-link">Our Venue</a>
+          <a href="#catering" class="footer-nav-link">Catering</a>
+          <a href="#faq" class="footer-nav-link">FAQ</a>
+          <a href="#contact" class="footer-nav-link">Contact Us</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="copyright">
+          &copy; 2026 The Gathering Conference Center. All rights reserved.
+        </div>
+        <div class="footer-legal-links">
+          <a href="privacy-policy.html" class="footer-legal-link">Privacy Policy</a>
+          <a href="terms-of-use.html" class="footer-legal-link">Terms of Use</a>
+          <a href="accessibility.html" class="footer-legal-link">Accessibility Statement</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       COOKIE CONSENT BANNER (NEW)
+       ========================================== -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-text">
+      We use cookies and similar technologies to improve your experience, analyze website traffic, and enhance our services. Click Accept to allow all cookies or Decline to continue using only essential cookies. See our <a href="privacy-policy.html">Privacy Policy</a> for more information.
+    </div>
+    <div class="cookie-btns">
+      <button class="cookie-btn cookie-btn-decline" id="cookie-decline-btn">Decline</button>
+      <button class="cookie-btn cookie-btn-accept" id="cookie-accept-btn">Accept</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MOBILE PERSISTENT STICKY FOOTER
+       ========================================== -->
+  <div class="mobile-sticky-footer">
+    <a href="tel:855-340-0365" class="mobile-footer-btn mobile-footer-btn-call">
+      <span>📞 Tap to Call</span>
+    </a>
+    <a href="#hero" class="mobile-footer-btn mobile-footer-btn-avail">
+      <span>📅 Check Availability</span>
+    </a>
+  </div>
+
+  <!-- ==========================================
+       LIGHTBOX MODAL (NEW)
+       ========================================== -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close-btn">&times;</button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="Zoomed view">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript Controller -->
+  <script src="app.js"></script>
+</body>
+</html>
