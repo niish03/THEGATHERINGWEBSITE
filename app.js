@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const successPanel = document.createElement('div');
     successPanel.className = 'success-panel';
     successPanel.innerHTML = `
-      <div class="success-icon-wrapper">✓</div>
+      <div class="success-icon-wrapper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width: 36px; height: 36px; stroke-linecap: round; stroke-linejoin: round;"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
       <h3>Proposal Request Sent!</h3>
       <p>Thank you, <strong>${widgetState.name}</strong>. We've locked in your requested date of <strong>${widgetState.date}</strong> in our review calendar.</p>
       <p>Our team will email a custom quote for your <strong>${widgetState.eventType.toUpperCase()}</strong> event within 2-4 business hours.</p>
@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const formPanel = document.querySelector('.contact-form-panel');
       let successHTML = `
         <div style="text-align: center; padding: 40px 0;">
-          <div style="width: 60px; height: 60px; background-color: rgba(16, 185, 129, 0.1); border: 2px solid var(--success); color: var(--success); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 20px;">✓</div>
+          <div style="width: 60px; height: 60px; background-color: rgba(16, 185, 129, 0.1); border: 2px solid var(--success); color: var(--success); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width: 30px; height: 30px; stroke-linecap: round; stroke-linejoin: round;"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
           <h3 style="font-family: var(--font-headings); font-size: 1.6rem; color: var(--text-dark); margin-bottom: 12px;">Inquiry Received!</h3>
           <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 20px;">Thank you, <strong>${name}</strong>. We've received your request for a <strong>${eventType.toUpperCase()}</strong> event.</p>
       `;
