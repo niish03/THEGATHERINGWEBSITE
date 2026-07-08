@@ -444,6 +444,162 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================
+     EVENT MARQUEE BUILDER
+     ========================================== */
+  const marqueeIcons = {
+    'Corporate Meetings': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+    'Conferences & Seminars': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    'Weddings': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    'Banquets': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>',
+    'Birthday Celebrations': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/><path d="M12 3v1"/></svg>',
+    'Baby & Bridal Showers': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
+    'Church & Faith-Based Events': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22H6a2 2 0 0 1-2-2V8l8-6 8 6v12a2 2 0 0 1-2 2z"/><path d="M12 6v8"/><path d="M8 10h8"/></svg>',
+    'Family Reunions': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    'Holiday Parties': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    'Community Gatherings': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+    'Fundraisers & Nonprofit Events': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+    'Training Sessions & Workshops': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>',
+    'Graduation Celebrations': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg>',
+    'Anniversary Parties': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c-4.97 0-9-2.686-9-6v-2c0-3.314 4.03-6 9-6s9 2.686 9 6v2c0 3.314-4.03 6-9 6z"/><path d="M12 8V2"/><path d="M9 5l3-3 3 3"/></svg>'
+  };
+
+  const marqueeRow1Events = [
+    'Corporate Meetings', 'Conferences & Seminars', 'Weddings', 'Banquets',
+    'Birthday Celebrations', 'Baby & Bridal Showers', 'Church & Faith-Based Events'
+  ];
+  const marqueeRow2Events = [
+    'Family Reunions', 'Holiday Parties', 'Community Gatherings',
+    'Fundraisers & Nonprofit Events', 'Training Sessions & Workshops',
+    'Graduation Celebrations', 'Anniversary Parties'
+  ];
+
+  function createMarqueePill(name) {
+    const pill = document.createElement('div');
+    pill.className = 'marquee-pill';
+    pill.innerHTML = `
+      <span class="pill-icon">${marqueeIcons[name]}</span>
+      <span class="pill-text">${name}</span>
+    `;
+    return pill;
+  }
+
+  function populateMarqueeRow(container, events) {
+    // Duplicate items 4x for seamless loop on wider containers
+    const allEvents = [...events, ...events, ...events, ...events];
+    allEvents.forEach(name => container.appendChild(createMarqueePill(name)));
+  }
+
+  const marqueeRow1 = document.getElementById('marquee-row-1');
+  const marqueeRow2 = document.getElementById('marquee-row-2');
+  
+  if (marqueeRow1 && marqueeRow2) {
+    populateMarqueeRow(marqueeRow1, marqueeRow1Events);
+    populateMarqueeRow(marqueeRow2, marqueeRow2Events);
+  }
+
+  /* ==========================================
+     AMENITIES SLIDER (Infinite)
+     ========================================== */
+  const amenitiesTrack = document.getElementById('amenitiesTrack');
+  const btnPrev = document.getElementById('amenitiesBtnPrev');
+  const btnNext = document.getElementById('amenitiesBtnNext');
+  
+  if (amenitiesTrack && btnPrev && btnNext) {
+    const gap = 32;
+    const slideDelay = 3000;
+    let autoPlayInterval;
+    let isTransitioning = false;
+
+    // Clone all original cards and append for infinite loop
+    const originalCards = Array.from(amenitiesTrack.querySelectorAll('.amenity-card'));
+    const totalOriginal = originalCards.length;
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      amenitiesTrack.appendChild(clone);
+    });
+
+    // currentIndex references the first visible card (0 = first original)
+    let currentIndex = 0;
+
+    function getCardWidth() {
+      const firstCard = amenitiesTrack.querySelector('.amenity-card');
+      return firstCard ? firstCard.offsetWidth : 380;
+    }
+
+    function setTrackPosition(animate) {
+      const cardWidth = getCardWidth();
+      const offset = currentIndex * (cardWidth + gap);
+      if (!animate) {
+        amenitiesTrack.style.transition = 'none';
+      } else {
+        amenitiesTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+      }
+      amenitiesTrack.style.transform = `translateX(-${offset}px)`;
+      // Force reflow when disabling transition
+      if (!animate) amenitiesTrack.offsetHeight;
+    }
+
+    function slideNext() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex++;
+      setTrackPosition(true);
+    }
+
+    function slidePrev() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex--;
+      if (currentIndex < 0) {
+        // Jump to the cloned tail instantly, then animate back
+        currentIndex = totalOriginal - 1;
+        setTrackPosition(true);
+        isTransitioning = false;
+        return;
+      }
+      setTrackPosition(true);
+    }
+
+    // After transition, check if we've scrolled into clone territory
+    amenitiesTrack.addEventListener('transitionend', () => {
+      if (currentIndex >= totalOriginal) {
+        currentIndex = currentIndex - totalOriginal;
+        setTrackPosition(false); // Instant jump, no animation
+      }
+      isTransitioning = false;
+    });
+
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(slideNext, slideDelay);
+    }
+
+    btnNext.addEventListener('click', () => {
+      slideNext();
+      startAutoPlay();
+    });
+
+    btnPrev.addEventListener('click', () => {
+      slidePrev();
+      startAutoPlay();
+    });
+
+    // Pause on hover
+    amenitiesTrack.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    amenitiesTrack.addEventListener('mouseleave', startAutoPlay);
+
+    // Handle screen resizes
+    window.addEventListener('resize', () => {
+      setTrackPosition(false);
+    });
+
+    // Init
+    setTrackPosition(false);
+    startAutoPlay();
+  }
+
+  /* ==========================================
      ADD-ONS DYNAMIC LIST
      ========================================== */
   const addonItems = document.querySelectorAll('.addon-item');

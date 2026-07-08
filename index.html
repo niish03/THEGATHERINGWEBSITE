@@ -46,7 +46,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
           <span>855-340-0365</span>
         </a>
-        <a href="#hero" class="btn btn-primary">Check Availability</a>
+        <a href="#hero" class="btn btn-primary">Request Information</a>
       </div>
 
       <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
@@ -424,6 +424,7 @@
   <!-- ==========================================
        VENUE PREVIEW GALLERY (NEW)
        ========================================== -->
+  <!--
   <section class="section" id="gallery">
     <div class="container">
       <div class="section-header">
@@ -456,11 +457,12 @@
       </div>
     </div>
   </section>
+  -->
 
   <!-- ==========================================
        SECTION D: CATERING (NEW)
        ========================================== -->
-  <section class="section section-alt" id="catering">
+  <section class="section" id="catering">
     <div class="container">
       <div class="catering-showcase">
         <div class="catering-image-wrapper">
@@ -496,66 +498,75 @@
   <!-- ==========================================
        SECTION C: TRUST PILLARS & AMENITIES GRID
        ========================================== -->
-  <section class="section" id="amenities">
+  <section class="section section-alt" id="amenities">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">World-Class Venue Amenities</h2>
         <p class="section-subtitle">We handle the foundational details so you can focus entirely on your guests. Explore the amenities included with every rental reservation.</p>
       </div>
 
-      <div class="amenities-grid">
-        <!-- Amenity 1 -->
-        <div class="amenity-card">
-          <div class="amenity-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
-          </div>
-          <h3 class="amenity-title">Flexible Spaces</h3>
-          <p class="amenity-desc">4 customizable rooms with soundproof partition dividers. Configure the layout to support events from small training sessions to 300-guest galas.</p>
+      <div class="amenities-slider-container">
+        <!-- Slider Navigation -->
+        <div class="slider-nav">
+          <button class="slider-btn slider-btn-prev" id="amenitiesBtnPrev" aria-label="Previous Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="slider-btn slider-btn-next" id="amenitiesBtnNext" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
         </div>
-
-        <!-- Amenity 2 -->
-        <div class="amenity-card">
-          <div class="amenity-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        
+        <div class="amenities-slider-viewport">
+          <div class="amenities-slider-track" id="amenitiesTrack">
+            <!-- Amenity 1 -->
+            <div class="amenity-card">
+              <div class="amenity-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+              </div>
+              <h3 class="amenity-title">Flexible Spaces</h3>
+              <p class="amenity-desc">4 customizable rooms with soundproof partition dividers. Configure the layout to support events from small training sessions to 300-guest galas.</p>
+            </div>
+            <!-- Amenity 2 -->
+            <div class="amenity-card">
+              <div class="amenity-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h3 class="amenity-title">In-House Catering</h3>
+              <p class="amenity-desc">Custom menu options crafted specifically for your event. <em>Note: outside catering is not permitted to ensure safety and quality.</em></p>
+            </div>
+            <!-- Amenity 3 -->
+            <div class="amenity-card">
+              <div class="amenity-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <h3 class="amenity-title">Ample Parking</h3>
+              <p class="amenity-desc">250 to 300 complimentary on-site parking spaces, ensuring easy arrival and departure for all guests.</p>
+            </div>
+            <!-- Amenity 4 -->
+            <div class="amenity-card">
+              <div class="amenity-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a11 11 0 0 0-11 11 11.08 11.08 0 0 0 2.24 6.7L1.44 21.8a1 1 0 0 0 1.25 1.25l3.1-1.8A11 11 0 1 0 12 1z"/><path d="M12 5a7 7 0 0 1 7 7"/></svg>
+              </div>
+              <h3 class="amenity-title">Complete A/V Support</h3>
+              <p class="amenity-desc">Complimentary high-speed Wi-Fi, projection equipment, convenient power access, and microphones in every ballroom.</p>
+            </div>
+            <!-- Amenity 5 -->
+            <div class="amenity-card">
+              <div class="amenity-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <h3 class="amenity-title">Flexible Rentals</h3>
+              <p class="amenity-desc">Choose between highly competitive hourly booking rates or convenient, full-day packages to match your schedule.</p>
+            </div>
+            <!-- Amenity 6 -->
+            <div class="amenity-card">
+              <div class="amenity-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+              </div>
+              <h3 class="amenity-title">Accessibility</h3>
+              <p class="amenity-desc">Fully ADA accessible building structures, restroom amenities, and entryways to welcome every attendee comfortably.</p>
+            </div>
           </div>
-          <h3 class="amenity-title">In-House Catering</h3>
-          <p class="amenity-desc">Custom menu options crafted specifically for your event. <em>Note: outside catering is not permitted to ensure safety and quality.</em></p>
-        </div>
-
-        <!-- Amenity 3 -->
-        <div class="amenity-card">
-          <div class="amenity-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          </div>
-          <h3 class="amenity-title">Ample Parking</h3>
-          <p class="amenity-desc">250 to 300 complimentary on-site parking spaces, ensuring easy arrival and departure for all guests.</p>
-        </div>
-
-        <!-- Amenity 4 -->
-        <div class="amenity-card">
-          <div class="amenity-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a11 11 0 0 0-11 11 11.08 11.08 0 0 0 2.24 6.7L1.44 21.8a1 1 0 0 0 1.25 1.25l3.1-1.8A11 11 0 1 0 12 1z"/><path d="M12 5a7 7 0 0 1 7 7"/></svg>
-          </div>
-          <h3 class="amenity-title">Complete A/V Support</h3>
-          <p class="amenity-desc">Complimentary high-speed Wi-Fi, projection equipment, convenient power access, and microphones in every ballroom.</p>
-        </div>
-
-        <!-- Amenity 5 -->
-        <div class="amenity-card">
-          <div class="amenity-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          </div>
-          <h3 class="amenity-title">Flexible Rentals</h3>
-          <p class="amenity-desc">Choose between highly competitive hourly booking rates or convenient, full-day packages to match your schedule.</p>
-        </div>
-
-        <!-- Amenity 6 -->
-        <div class="amenity-card">
-          <div class="amenity-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
-          </div>
-          <h3 class="amenity-title">Accessibility</h3>
-          <p class="amenity-desc">Fully ADA accessible building structures, restroom amenities, and entryways to welcome every attendee comfortably.</p>
         </div>
       </div>
     </div>
@@ -564,53 +575,57 @@
   <!-- ==========================================
        SECTION D: EVENT POSSIBILITIES & ADD-ONS
        ========================================== -->
-  <section class="section section-alt" id="possibilities">
+  <section class="section" id="possibilities">
     <div class="container possibilities-container">
-      <div>
+      <div class="possibilities-left">
         <h2 class="section-title" style="text-align: left;">Event Possibilities</h2>
         <p class="contact-desc">Host your next meeting, conference, wedding, or celebration with confidence. Our modular ballrooms adapt to any format.</p>
         
-        <div class="event-possibilities-showcase">
-          <!-- Corporate -->
-          <div class="possibility-card">
-            <div class="possibility-img" style="background-image: linear-gradient(rgba(15,23,42,0.4), rgba(15,23,42,0.4)), url('assets/gallery_corp.jpg');"></div>
-            <div class="possibility-content">
-              <h3 class="possibility-title">Corporate Events</h3>
-              <p class="possibility-desc">Ideal for Meetings, Conferences, Workshops, Training Sessions, Seminars, and product launches.</p>
-              <div class="possibility-tags">
-                <span class="possibility-tag">Meetings</span>
-                <span class="possibility-tag">Conferences</span>
-                <span class="possibility-tag">Workshops</span>
-              </div>
-            </div>
-          </div>
+        <!-- Perfect For Label -->
+        <div class="perfect-for-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" color="#A3845B">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+          <span>Perfect For</span>
+        </div>
 
-          <!-- Social -->
-          <div class="possibility-card">
-            <div class="possibility-img" style="background-image: linear-gradient(rgba(15,23,42,0.4), rgba(15,23,42,0.4)), url('assets/hero.jpg'); background-position: bottom;"></div>
-            <div class="possibility-content">
-              <h3 class="possibility-title">Social Celebrations</h3>
-              <p class="possibility-desc">Host Weddings, Receptions, Showers, Anniversaries, Birthday Celebrations, and Holiday Parties.</p>
-              <div class="possibility-tags">
-                <span class="possibility-tag">Weddings</span>
-                <span class="possibility-tag">Receptions</span>
-                <span class="possibility-tag">Showers</span>
-              </div>
-            </div>
-          </div>
+        <!-- Dual-Row Marquee -->
+        <div class="marquee-wrapper" id="marquee-wrapper">
+          <div class="marquee-row marquee-row--left" id="marquee-row-1"></div>
+          <div class="marquee-row marquee-row--right" id="marquee-row-2"></div>
+        </div>
 
-          <!-- Community -->
-          <div class="possibility-card">
-            <div class="possibility-img" style="background-image: linear-gradient(rgba(15,23,42,0.4), rgba(15,23,42,0.4)), url('assets/gallery_wedding.jpg');"></div>
-            <div class="possibility-content">
-              <h3 class="possibility-title">Community Events</h3>
-              <p class="possibility-desc">A spacious hall for Church Events, Fundraisers, Family Reunions, and Non-profit Gala dinners.</p>
-              <div class="possibility-tags">
-                <span class="possibility-tag">Church Events</span>
-                <span class="possibility-tag">Fundraisers</span>
-                <span class="possibility-tag">Reunions</span>
-              </div>
+        <!-- 3 Category Cards (minimal) -->
+        <div class="event-categories">
+          <div class="cat-card" id="cat-corporate">
+            <div class="cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                <line x1="12" y1="12" x2="12" y2="12.01" />
+                <path d="M2 12h20" />
+              </svg>
             </div>
+            <div class="cat-title">Corporate</div>
+          </div>
+          <div class="cat-card" id="cat-social">
+            <div class="cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+            </div>
+            <div class="cat-title">Social</div>
+          </div>
+          <div class="cat-card" id="cat-community">
+            <div class="cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <div class="cat-title">Community</div>
           </div>
         </div>
       </div>
@@ -692,7 +707,7 @@
   <!-- ==========================================
        SECTION E: CATEGORIZED FAQ ACCORDION
        ========================================== -->
-  <section class="section" id="faq">
+  <section class="section section-alt" id="faq">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Frequently Asked Questions</h2>
@@ -1106,7 +1121,7 @@
   <!-- ==========================================
        SECTION F: CONTACT SECTION & LEAD CAPTURE
        ========================================== -->
-  <section class="section section-alt" id="contact">
+  <section class="section" id="contact">
     <div class="container contact-layout">
       <!-- Contact Info Panel -->
       <div class="contact-info-panel">
@@ -1232,7 +1247,7 @@
       <h2 class="footer-cta-title">Where Tupelo Comes Together.</h2>
       <p class="footer-cta-desc">Host your next meeting, conference, wedding, or celebration with confidence.</p>
       <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="#hero" class="btn btn-primary">Check Availability</a>
+        <a href="#hero" class="btn btn-primary">Request Information</a>
         <a href="tel:855-340-0365" class="btn btn-secondary"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>Call 855-340-0365</span></a>
       </div>
     </div>
@@ -1292,7 +1307,7 @@
     </a>
     <a href="#booking-widget" class="mobile-footer-btn mobile-footer-btn-avail">
       <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span>Check Availability</span>
+      <span>Request Information</span>
     </a>
   </div>
 
