@@ -13,6 +13,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================
+     DATE VALIDATION HELPER
+     ========================================== */
+  function isValidHighLevelDate(dateStr) {
+    if (!dateStr) return false;
+    let matchYMD = dateStr.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);
+    let matchMDY = dateStr.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+    
+    let y, m, d;
+    if (matchYMD) {
+      y = parseInt(matchYMD[1], 10);
+      m = parseInt(matchYMD[2], 10);
+      d = parseInt(matchYMD[3], 10);
+    } else if (matchMDY) {
+      m = parseInt(matchMDY[1], 10);
+      d = parseInt(matchMDY[2], 10);
+      y = parseInt(matchMDY[3], 10);
+    } else {
+      return false;
+    }
+    return (m >= 1 && m <= 12 && d >= 1 && d <= 31 && y >= 1900);
+  }
+
+  /* ==========================================
      SCROLL-SPY ACTIVE PAGE INDICATOR & STICKY HEADER
      ========================================== */
   const header = document.querySelector('.header');
@@ -226,9 +249,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let isValid = true;
 
     if (widgetState.step === 1) {
-      const dateVal = document.getElementById('widget-date').value;
+      const dateInput = document.getElementById('widget-date');
+      const dateVal = dateInput.value.trim();
+      
       if (!dateVal) {
-        showError('widget-date', 'Please select a preferred event date.');
+        if (dateInput.validity && dateInput.validity.badInput) {
+           showError('widget-date', 'Please enter a valid date.');
+           isValid = false;
+        } else {
+           showError('widget-date', 'Please select a preferred event date.');
+           isValid = false;
+        }
+      } else if (!isValidHighLevelDate(dateVal)) {
+        showError('widget-date', 'Please enter a valid date.');
         isValid = false;
       }
       if (isValid) widgetState.date = dateVal;
@@ -293,8 +326,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Auto advance to Step 2 for high converting UX, but only if date is filled
         setTimeout(() => {
           if (widgetState.step === 1) {
-            const dateVal = document.getElementById('widget-date').value;
-            if (dateVal) {
+            const dateVal = document.getElementById('widget-date').value.trim();
+            if (dateVal && isValidHighLevelDate(dateVal)) {
               widgetState.date = dateVal;
               widgetState.step = 2;
               updateWidgetUI();
