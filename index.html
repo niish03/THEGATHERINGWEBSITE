@@ -6,7 +6,7 @@
   
   <!-- SEO Meta Tags -->
   <title>The Gathering Conference Center | Premier Event & Banquet Venue in Tupelo, MS</title>
-  <meta name="description" content="Where Southern charm meets modern elegance. The Gathering Conference Center offers 4 versatile rooms, premier in-house catering, and space for up to 300 guests in Tupelo, MS. Check date availability online.">
+  <meta name="description" content="Where Southern charm meets modern elegance. The Gathering Conference Center offers 4 versatile rooms, premier in-house catering, and space for up to 300 guests in Tupelo, MS. Let's Start Planning Your Event online.">
   <meta name="keywords" content="conference center Tupelo MS, wedding venue Tupelo Mississippi, event space Tupelo, banquet hall MS, party venue Tupelo, business meeting space MS">
   
   <!-- Open Graph Meta Tags -->
@@ -33,20 +33,21 @@
       
       <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
         <div class="nav-links">
-          <a href="#about" class="nav-link">About Us</a>
-          <a href="#venue" class="nav-link">Our Venue</a>
-          <a href="#catering" class="nav-link">Catering</a>
-          <a href="#faq" class="nav-link">FAQ</a>
-          <a href="#contact" class="nav-link">Contact</a>
+          <a href="#hero" class="nav-link" data-section="hero">Home</a>
+          <a href="#venue" class="nav-link" data-section="venue">Venue</a>
+          <a href="#amenities" class="nav-link" data-section="amenities">Amenities</a>
+          <a href="#gallery" class="nav-link" data-section="gallery">Gallery</a>
+          <a href="#faq" class="nav-link" data-section="faq">FAQ</a>
+          <a href="#contact" class="nav-link" data-section="contact">Contact</a>
         </div>
       </nav>
 
       <div class="header-actions">
-        <a href="tel:855-340-0365" class="phone-link" aria-label="Call us toll-free">
+        <a href="tel:855-340-0365" class="btn header-phone-btn" aria-label="Call us toll-free">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
           <span>855-340-0365</span>
         </a>
-        <a href="#hero" class="btn btn-primary">Request Information</a>
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
       </div>
 
       <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
@@ -66,9 +67,13 @@
   <section class="hero" id="hero">
     <div class="container hero-grid">
       <div class="hero-content">
-        <div class="hero-tagline">Welcome to Tupelo's Premier Venue</div>
+        <div class="hero-tagline">Welcome to The Gathering Conference Center</div>
         <h1 class="hero-title">Where Every Event Brings People Together</h1>
-        <p class="hero-desc">Experience an unforgettable gathering where Southern charm meets modern elegance. The perfect space designed for weddings, banquets, and corporate conferences.</p>
+        <p class="hero-desc">Experience an unforgettable gathering where timeless elegance meets modern convenience. Our flexible event spaces are thoughtfully designed to accommodate everything from intimate celebrations to large-scale events, creating the perfect setting for memorable experiences.</p>
+        
+        <div class="hero-typewriter" style="font-size: 1.1rem; color: var(--accent); margin-bottom: 30px; font-weight: 500;">
+          Perfect for <span class="typewriter-text" style="color: var(--white); font-weight: 600;"></span><span class="typewriter-cursor" style="color: var(--white); margin-left: 2px;">|</span>
+        </div>
         
         <div class="hero-stats">
           <div class="stat-item">
@@ -94,8 +99,8 @@
       <div class="booking-widget-container" id="booking-widget">
         <div class="booking-widget">
           <div class="booking-widget-header">
-            <h3 class="booking-widget-title">Check Date Availability</h3>
-            <p class="booking-widget-subtitle">Complete 3 simple steps for a custom quote & private tour.</p>
+            <h3 class="booking-widget-title">Let's Start Planning Your Event</h3>
+            <p class="booking-widget-subtitle">Complete 3 simple steps to get started.</p>
           </div>
 
           <!-- Progress Indicator -->
@@ -110,9 +115,16 @@
 
           <!-- Steps Wrapper -->
           <div class="step-panels-wrapper">
-            <!-- STEP 1: EVENT TYPE -->
+            <!-- STEP 1: YOUR EVENT -->
             <div class="step-panel active" data-step="1">
-              <span class="widget-label">Step 1: Select Event Type</span>
+              <span class="widget-label">Step 1: Your Event</span>
+              
+              <div class="widget-form-group" style="margin-bottom: 25px;">
+                <label for="widget-date" class="widget-label" style="margin-bottom: 8px;">Preferred Event Date (Required)</label>
+                <input type="date" class="widget-input" id="widget-date" aria-label="Preferred Event Date" required>
+              </div>
+
+              <span class="widget-label">Event Type (Optional)</span>
               <div class="event-type-grid">
                 <div class="event-type-card" data-value="wedding">
                   <!-- Ring Icon -->
@@ -137,43 +149,50 @@
               </div>
             </div>
 
-            <!-- STEP 2: GUESTS & SPACE -->
+            <!-- STEP 2: YOUR GUESTS -->
             <div class="step-panel" data-step="2">
-              <span class="widget-label">Step 2: Guest Count & Space <span class="guest-output" id="guest-val">50</span></span>
+              <span class="widget-label">Step 2: Your Guests</span>
               
-              <div class="guest-slider-group">
-                <input type="range" min="10" max="300" value="50" class="guest-slider" id="widget-guests" aria-label="Estimated guest count">
-              </div>
-
-              <span class="widget-label">Preferred Room Configuration (Optional)</span>
-              <div class="room-select-grid">
-                <div class="room-select-card" data-value="Room A" data-max="60">Room A (60 Max)</div>
-                <div class="room-select-card" data-value="Room B" data-max="110">Room B (110 Max)</div>
-                <div class="room-select-card" data-value="Room C" data-max="50">Room C (50 Max)</div>
-                <div class="room-select-card" data-value="Room D" data-max="80">Room D (80 Max)</div>
-                <div class="room-select-card" data-value="Combined" data-max="300">Combined (300 Max)</div>
+              <div class="widget-form-group">
+                <label for="widget-guests-input" class="widget-label" style="margin-bottom: 8px;">Estimated Guest Count (Required)</label>
+                <!-- <p style="text-align: left; font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); margin-bottom: 15px;">An estimate is perfectly fine.</p> -->
+                <input type="number" min="1" max="1000" class="widget-input" id="widget-guests-input" placeholder="e.g. 150" aria-label="Estimated Guest Count" required>
               </div>
             </div>
 
-            <!-- STEP 3: CONTACT & CONFIRMATION -->
+            <!-- STEP 3: LET'S CONNECT -->
             <div class="step-panel" data-step="3">
-              <span class="widget-label">Step 3: Contact & Preferred Date</span>
+              <span class="widget-label">Step 3: Let's Connect</span>
               
               <div class="widget-form-group">
-                <input type="date" class="widget-input" id="widget-date" aria-label="Preferred Event Date" required>
+                <input type="text" class="widget-input" id="widget-name" placeholder="Full Name (Required)" aria-label="Your name" required>
               </div>
               <div class="widget-form-group">
-                <input type="text" class="widget-input" id="widget-name" placeholder="Full Name" aria-label="Your name" required>
+                <input type="email" class="widget-input" id="widget-email" placeholder="Email (Required)" aria-label="Your email" required>
               </div>
               <div class="widget-form-group">
-                <input type="email" class="widget-input" id="widget-email" placeholder="Email Address" aria-label="Your email" required>
+                <input type="tel" class="widget-input" id="widget-phone" placeholder="Phone (Required)" aria-label="Your phone number" required>
               </div>
               <div class="widget-form-group">
-                <input type="tel" class="widget-input" id="widget-phone" placeholder="Phone Number" aria-label="Your phone number" required>
+                <textarea class="widget-input" id="widget-info" placeholder="Additional information (optional)" aria-label="Additional info" rows="2" style="resize: vertical;"></textarea>
+              </div>
+              <div class="widget-form-group">
                 <div class="widget-sms-disclosure">
                   By providing your phone number, you consent to receive text messages (SMS) from The Gathering Conference Center regarding your event request. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-of-use.html" target="_blank">Terms of Use</a>.
                 </div>
               </div>
+            </div>
+
+            <!-- STEP 4: CONFIRMATION -->
+            <div class="step-panel" data-step="4" style="text-align: center; padding: 40px 20px;">
+              <div style="margin-bottom: 25px;">
+                <svg class="success-icon-animated" viewBox="0 0 24 24" width="72" height="72" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; border: 2px solid #10b981; border-radius: 50%; padding: 15px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <h3 style="color: #ffffff; font-family: var(--font-headings); font-size: 2.2rem; margin-bottom: 20px; font-weight: 600;">You're One Step Closer!</h3>
+              <p style="color: rgba(255, 255, 255, 0.85); font-size: 1rem; line-height: 1.6; margin-bottom: 40px; font-weight: 300;" id="confirmation-message">
+                <!-- Text populated by JS -->
+              </p>
+              <button class="btn" onclick="location.reload()" style="font-size: 1rem; padding: 12px 28px; background: #c8a97e; color: #1a1a1a; border: none; font-weight: 600; border-radius: 6px; cursor: pointer;">Plan Another Event</button>
             </div>
           </div>
 
@@ -201,7 +220,7 @@
       <div class="about-badge">
         <div class="about-badge-text-wrapper">
           <div class="about-badge-title">Our Philosophy</div>
-          <p class="about-badge-desc">Host your next event at The Gathering—where timeless elegance and genuine hospitality come together.</p>
+          <p class="about-badge-desc">Every memorable event begins with a welcoming space. At The Gathering, timeless elegance, thoughtful details, and genuine hospitality come together to create experiences your guests will remember.</p>
         </div>
         <img src="assets/location_maps.png" alt="Map Location of The Gathering" class="about-badge-img">
       </div>
@@ -415,90 +434,17 @@
             </div>
           </div>
 
-          <a href="#hero" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Reserve This Configuration</a>
+          <!-- <a href="#hero" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Reserve This Configuration</a> -->
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       VENUE PREVIEW GALLERY (NEW)
-       ========================================== -->
-  <!--
-  <section class="section" id="gallery">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">See The Space Come To Life</h2>
-        <p class="section-subtitle">Browse images of actual configurations and layout possibilities. Tap any image to view larger.</p>
-      </div>
-      
-      <div class="gallery-grid">
-        <div class="gallery-item" data-image="assets/hero.jpg" data-caption="Grand Ballroom Setup - Perfect for elegant wedding banquets and large celebrations.">
-          <img src="assets/hero.jpg" alt="Grand Ballroom reception setup with warm lighting">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Grand Ballroom Setup</span>
-            <span class="gallery-sub">Social / Banquet Layout</span>
-          </div>
-        </div>
-        <div class="gallery-item" data-image="assets/gallery_corp.jpg" data-caption="Corporate Seminar - Clean seating rows, modern lighting, and built-in screens.">
-          <img src="assets/gallery_corp.jpg" alt="Corporate meeting setup with chairs and display board">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Corporate Seminar</span>
-            <span class="gallery-sub">Business / Meeting Layout</span>
-          </div>
-        </div>
-        <div class="gallery-item" data-image="assets/gallery_wedding.jpg" data-caption="Upscale Table Settings - Showcasing detailed gold flatware, white roses, and candles.">
-          <img src="assets/gallery_wedding.jpg" alt="Wedding table set with flowers, candles, and menu cards">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Linens & Centerpieces</span>
-            <span class="gallery-sub">Social Details</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <!-- ==========================================
-       SECTION D: CATERING (NEW)
-       ========================================== -->
-  <section class="section" id="catering">
-    <div class="container">
-      <div class="catering-showcase">
-        <div class="catering-image-wrapper">
-          <img src="assets/catering.jpg" alt="Gourmet in-house catering at The Gathering" class="catering-image">
-          <div class="catering-image-overlay">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span>Exclusive In-House Service</span>
-          </div>
-        </div>
-        <div class="catering-content">
-          <span class="catering-badge-title">Gourmet Dining Experience</span>
-          <h2 class="catering-main-title">Culinary excellence designed to elevate your event.</h2>
-          <p class="catering-text">Our culinary team crafts exquisite, custom-tailored menus for any occasion—from multi-course elegant plated dinners to grand, expansive buffets. To ensure immaculate food safety, seamless service, and uncompromising quality, we strictly provide all catering in-house.</p>
-          <ul class="catering-list-items">
-            <li class="catering-list-item">
-              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span>Fully customizable menus spanning diverse global cuisines</span>
-            </li>
-            <li class="catering-list-item">
-              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span>Professional, licensed in-house bartenders and waitstaff</span>
-            </li>
-            <li class="catering-list-item">
-              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span>Adherence to the highest safety and hygiene standards</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ==========================================
        SECTION C: TRUST PILLARS & AMENITIES GRID
        ========================================== -->
-  <section class="section section-alt" id="amenities">
+  <section class="section" id="amenities">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">World-Class Venue Amenities</h2>
@@ -573,133 +519,76 @@
   </section>
 
   <!-- ==========================================
-       SECTION D: EVENT POSSIBILITIES & ADD-ONS
+       SECTION D: CATERING (NEW)
        ========================================== -->
-  <section class="section" id="possibilities">
-    <div class="container possibilities-container">
-      <div class="possibilities-left">
-        <h2 class="section-title" style="text-align: left;">Event Possibilities</h2>
-        <p class="contact-desc">Host your next meeting, conference, wedding, or celebration with confidence. Our modular ballrooms adapt to any format.</p>
-        
-        <!-- Perfect For Label -->
-        <div class="perfect-for-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" color="#A3845B">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-          </svg>
-          <span>Perfect For</span>
+  <section class="section section-alt" id="catering">
+    <div class="container">
+      <div class="catering-showcase">
+        <div class="catering-image-wrapper">
+          <img src="assets/catering.jpg" alt="Gourmet in-house catering at The Gathering" class="catering-image">
+          <div class="catering-image-overlay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Exclusive In-House Service</span>
+          </div>
         </div>
+        <div class="catering-content">
+          <span class="catering-badge-title">Gourmet Dining Experience</span>
+          <h2 class="catering-main-title">Culinary excellence designed to elevate your event.</h2>
+          <p class="catering-text">Our culinary team crafts exquisite, custom-tailored menus for any occasion—from multi-course elegant plated dinners to grand, expansive buffets. To ensure immaculate food safety, seamless service, and uncompromising quality, we strictly provide all catering in-house.</p>
+          <ul class="catering-list-items">
+            <li class="catering-list-item">
+              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span>Fully customizable menus spanning diverse global cuisines</span>
+            </li>
+            <li class="catering-list-item">
+              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span>Professional, licensed in-house bartenders and waitstaff</span>
+            </li>
+            <li class="catering-list-item">
+              <span class="catering-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span>Adherence to the highest safety and hygiene standards</span>
+            </li>
+          </ul>
 
-        <!-- Dual-Row Marquee -->
-        <div class="marquee-wrapper" id="marquee-wrapper">
-          <div class="marquee-row marquee-row--left" id="marquee-row-1"></div>
-          <div class="marquee-row marquee-row--right" id="marquee-row-2"></div>
-        </div>
-
-        <!-- 3 Category Cards (minimal) -->
-        <div class="event-categories">
-          <div class="cat-card" id="cat-corporate">
-            <div class="cat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                <line x1="12" y1="12" x2="12" y2="12.01" />
-                <path d="M2 12h20" />
-              </svg>
-            </div>
-            <div class="cat-title">Corporate</div>
-          </div>
-          <div class="cat-card" id="cat-social">
-            <div class="cat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
-            </div>
-            <div class="cat-title">Social</div>
-          </div>
-          <div class="cat-card" id="cat-community">
-            <div class="cat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            </div>
-            <div class="cat-title">Community</div>
-          </div>
+          <a href="assets/menu.pdf" target="_blank" class="btn btn-primary" style="margin-top: 20px; display: inline-block;">View Full Menu (PDF)</a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Add-ons Panel -->
-      <div class="addons-panel">
-        <div class="addons-header">
-          <h3 class="addons-title">Available Add-Ons</h3>
-          <p class="addons-desc">Choose from our list of available accessories. Click on the items below to include them in your query.</p>
-        </div>
 
-        <div class="addons-list">
-          <div class="addon-item" data-name="tables-chairs">
-            <div class="addon-checkbox">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="addon-details">
-              <span class="addon-name">Tables and chairs</span>
-              <span class="addon-sub">Round dinner tables, long banquet tables, and chairs included</span>
-            </div>
-          </div>
-
-          <div class="addon-item" data-name="av-gear">
-            <div class="addon-checkbox">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="addon-details">
-              <span class="addon-name">Audio/video equipment</span>
-              <span class="addon-sub">Handheld microphones, projection units, screens, and podium A/V</span>
-            </div>
-          </div>
-
-          <div class="addon-item" data-name="decor-setup">
-            <div class="addon-checkbox">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="addon-details">
-              <span class="addon-name">Decoration setup</span>
-              <span class="addon-sub">Aesthetic linens, table runner sets, uplighting options</span>
-            </div>
-          </div>
-
-          <div class="addon-item" data-name="catering-staff">
-            <div class="addon-checkbox">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="addon-details">
-              <span class="addon-name">Catering support</span>
-              <span class="addon-sub">Buffet operators, servers, and beverage hosts</span>
-            </div>
-          </div>
-
-          <div class="addon-item" data-name="cleaning">
-            <div class="addon-checkbox">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="addon-details">
-              <span class="addon-name">Cleaning</span>
-              <span class="addon-sub">Post-event cleaning, trash removal, and room resets</span>
-            </div>
-          </div>
-
-          <div class="addon-item" data-name="security">
-            <div class="addon-checkbox">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="addon-details">
-              <span class="addon-name">Security</span>
-              <span class="addon-sub">On-site professional security guards for peace of mind</span>
-            </div>
+  <!-- ==========================================
+       VENUE PREVIEW GALLERY (NEW)
+       ========================================== -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">See The Space Come To Life</h2>
+        <p class="section-subtitle">Browse images of actual configurations and layout possibilities. Tap any image to view larger.</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" data-image="assets/hero.jpg" data-caption="Grand Ballroom Setup - Perfect for elegant wedding banquets and large celebrations.">
+          <img src="assets/hero.jpg" alt="Grand Ballroom reception setup with warm lighting">
+          <div class="gallery-overlay">
+            <span class="gallery-title">Grand Ballroom Setup</span>
+            <span class="gallery-sub">Social / Banquet Layout</span>
           </div>
         </div>
-        
-        <a href="#contact" class="btn btn-primary" style="width: 100%; margin-top: 30px;">Apply to Availability Request</a>
+        <div class="gallery-item" data-image="assets/gallery_corp.jpg" data-caption="Corporate Seminar - Clean seating rows, modern lighting, and built-in screens.">
+          <img src="assets/gallery_corp.jpg" alt="Corporate meeting setup with chairs and display board">
+          <div class="gallery-overlay">
+            <span class="gallery-title">Corporate Seminar</span>
+            <span class="gallery-sub">Business / Meeting Layout</span>
+          </div>
+        </div>
+        <div class="gallery-item" data-image="assets/gallery_wedding.jpg" data-caption="Upscale Table Settings - Showcasing detailed gold flatware, white roses, and candles.">
+          <img src="assets/gallery_wedding.jpg" alt="Wedding table set with flowers, candles, and menu cards">
+          <div class="gallery-overlay">
+            <span class="gallery-title">Linens & Centerpieces</span>
+            <span class="gallery-sub">Social Details</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1126,8 +1015,8 @@
       <!-- Contact Info Panel -->
       <div class="contact-info-panel">
         <div>
-          <h2 class="contact-title">Start Planning Your Gathering Today</h2>
-          <p class="contact-desc">Share a few event details and our team will reach out to discuss availability, rental options, catering, and next steps.</p>
+          <h2 class="contact-title">Get In Touch</h2>
+          <p class="contact-desc">We would love to hear from you. Reach out via email or phone to discuss availability, schedule a private tour, or visit us using the map below.</p>
         </div>
 
         <div class="contact-details-list">
@@ -1139,9 +1028,6 @@
             <div class="contact-detail-content">
               <span class="contact-detail-label">Physical Address</span>
               <span class="contact-detail-value">852A N Gloster St, Tupelo, MS 38804</span>
-              <a href="https://www.google.com/maps/search/?api=1&query=852A%20N%20Gloster%20St%2C%20Tupelo%2C%20MS%2038804" target="_blank" rel="noopener noreferrer" class="directions-link">
-                <span>📍 Get Directions (Google Maps)</span>
-              </a>
             </div>
           </div>
 
@@ -1181,61 +1067,10 @@
       </div>
 
       <!-- Final Lead Capture Form Panel -->
-      <div class="contact-form-panel">
-        <h3 class="form-title">Send a Quick Inquiry</h3>
-        <p class="form-subtitle">Your request will be sent to info@thegathering365.com.</p>
-        
-        <form id="lead-capture-form">
-          <div class="form-grid">
-            <div>
-              <label for="contact-name" class="form-label">Full Name *</label>
-              <input type="text" id="contact-name" class="form-input" placeholder="John Doe" required>
-            </div>
-            <div>
-              <label for="contact-email" class="form-label">Email Address *</label>
-              <input type="email" id="contact-email" class="form-input" placeholder="john@example.com" required>
-            </div>
-            <div class="form-group-full">
-              <label for="contact-phone" class="form-label">Phone Number *</label>
-              <input type="tel" id="contact-phone" class="form-input" placeholder="Phone Number" required>
-              <div class="widget-sms-disclosure">
-                By providing your phone number, you consent to receive text messages (SMS) from The Gathering Conference Center regarding your event request. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-of-use.html" target="_blank">Terms of Use</a>.
-              </div>
-            </div>
-            <div>
-              <label for="contact-event-type" class="form-label">Event Category *</label>
-              <select id="contact-event-type" class="form-input" required>
-                <option value="" disabled selected>Select Category</option>
-                <option value="corporate">Corporate (Meeting / Seminar)</option>
-                <option value="wedding">Social (Wedding / Reception)</option>
-                <option value="banquet">Banquet / Dinner Celebration</option>
-                <option value="community">Community / Non-Profit</option>
-                <option value="other">Other Unique Celebration</option>
-              </select>
-            </div>
-            <div>
-              <label for="contact-guests" class="form-label">Estimated Guests *</label>
-              <select id="contact-guests" class="form-input" required>
-                <option value="" disabled selected>Select Guest Count</option>
-                <option value="under50">Under 50</option>
-                <option value="50-100">50 - 100</option>
-                <option value="100-200">100 - 200</option>
-                <option value="200-300">200 - 300</option>
-                <option value="300+">300+</option>
-              </select>
-            </div>
-            <div>
-              <label for="contact-event-date" class="form-label">Preferred Event Date (Optional)</label>
-              <input type="date" id="contact-event-date" class="form-input">
-            </div>
-            <div class="form-group-full">
-              <label for="contact-message" class="form-label">Tell Us About Your Event (Optional)</label>
-              <textarea id="contact-message" class="form-input" placeholder="Please list preferred layout setups, menu questions, or any special requests here..."></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
-        </form>
+      <div class="contact-form-panel" style="padding: 0; background: transparent; box-shadow: none;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3119.263456283855!2d-88.71385216846352!3d34.27105048692031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88874c28e76aadb9%3A0xcc25a9e69b5c8a1f!2s852A%20N%20Gloster%20St%2C%20Tupelo%2C%20MS%2038804%2C%20USA!5e0!3m2!1sen!2sin!4v1783611270148!5m2!1sen!2sin" width="100%" height="100%" style="border:0; min-height: 500px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
+      
     </div>
   </section>
 
@@ -1247,7 +1082,7 @@
       <h2 class="footer-cta-title">Where Tupelo Comes Together.</h2>
       <p class="footer-cta-desc">Host your next meeting, conference, wedding, or celebration with confidence.</p>
       <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="#hero" class="btn btn-primary">Request Information</a>
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
         <a href="tel:855-340-0365" class="btn btn-secondary"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>Call 855-340-0365</span></a>
       </div>
     </div>
@@ -1264,11 +1099,12 @@
           <img class="logo-img" src="assets/THE%20GATHERING%20LOGO%20-%20WHITE.png" alt="The Gathering Conference Center Logo">
         </div>
         <nav class="footer-nav" aria-label="Footer Navigation">
-          <a href="#about" class="footer-nav-link">About Us</a>
-          <a href="#venue" class="footer-nav-link">Our Venue</a>
-          <a href="#catering" class="footer-nav-link">Catering</a>
+          <a href="#hero" class="footer-nav-link">Home</a>
+          <a href="#venue" class="footer-nav-link">Venue</a>
+          <a href="#amenities" class="footer-nav-link">Amenities</a>
+          <a href="#gallery" class="footer-nav-link">Gallery</a>
           <a href="#faq" class="footer-nav-link">FAQ</a>
-          <a href="#contact" class="footer-nav-link">Contact Us</a>
+          <a href="#contact" class="footer-nav-link">Contact</a>
         </nav>
       </div>
       <div class="footer-bottom">
@@ -1305,9 +1141,9 @@
       <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
       <span>Tap to Call</span>
     </a>
-    <a href="#booking-widget" class="mobile-footer-btn mobile-footer-btn-avail">
+    <a href="#contact" class="mobile-footer-btn mobile-footer-btn-avail">
       <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span>Request Information</span>
+      <span>Get in Touch</span>
     </a>
   </div>
 

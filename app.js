@@ -1,15 +1,95 @@
 document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
-     STICKY HEADER & NAV SCROLL
+     SCROLL-SPY ACTIVE PAGE INDICATOR & STICKY HEADER
      ========================================== */
   const header = document.querySelector('.header');
-  
-  window.addEventListener('scroll', () => {
+  const navSpyLinks = document.querySelectorAll('.nav-link[data-section]');
+  const spySections = [];
+
+  navSpyLinks.forEach(link => {
+    const sectionId = link.getAttribute('data-section');
+    const section = document.getElementById(sectionId);
+    if (section) {
+      spySections.push({ id: sectionId, el: section });
+    }
+  });
+
+  // Observe catering and group it under the "Amenities" nav link
+  const cateringSec = document.getElementById('catering');
+  if (cateringSec) {
+    spySections.push({ id: 'catering', el: cateringSec });
+  }
+
+  // Handle sticky header scroll & edge cases for navigation highlights
+  function updateScrollState() {
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
+
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    if (scrollPosition < 50) {
+      // Force 'Home' active at the top
+      navSpyLinks.forEach(link => {
+        if (link.getAttribute('data-section') === 'hero') {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    } else if (scrollPosition + windowHeight >= documentHeight - 30) {
+      // Force 'Contact' active at the bottom
+      navSpyLinks.forEach(link => {
+        if (link.getAttribute('data-section') === 'contact') {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  window.addEventListener('scroll', updateScrollState);
+  updateScrollState(); // Initialize header state and nav highlight
+
+  // Setup IntersectionObserver for sections in between
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // Only handle updates if we aren't at the very top or bottom
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const isNearTop = scrollPosition < 50;
+      const isNearBottom = scrollPosition + windowHeight >= documentHeight - 30;
+
+      if (entry.isIntersecting && !isNearTop && !isNearBottom) {
+        let activeId = entry.target.id;
+        // Group catering and amenities together under the "amenities" nav item
+        if (activeId === 'catering') {
+          activeId = 'amenities';
+        }
+        
+        navSpyLinks.forEach(link => {
+          if (link.getAttribute('data-section') === activeId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '-25% 0px -50% 0px',
+    threshold: 0
+  });
+
+  spySections.forEach(({ el }) => {
+    spyObserver.observe(el);
   });
 
   /* ==========================================
@@ -41,9 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stepDots = document.querySelectorAll('.booking-widget .widget-step-dot');
     
     const eventTypeCards = document.querySelectorAll('.event-type-card');
-    const guestSlider = document.getElementById('widget-guests');
-    const guestValOutput = document.getElementById('guest-val');
-    const roomCards = document.querySelectorAll('.room-select-card');
+    const guestInput = document.getElementById('widget-guests-input');
     
     const btnPrev = document.getElementById('widget-prev-btn');
     const btnNext = document.getElementById('widget-next-btn');
@@ -51,12 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let widgetState = {
       step: 1,
       eventType: '',
-      guests: 50,
-      preferredRoom: '',
       date: '',
+      guests: '',
       name: '',
       email: '',
-      phone: ''
+      phone: '',
+      info: ''
     };
 
     // Step transitions
@@ -91,47 +169,96 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       btnPrev.style.visibility = 'visible';
       if (widgetState.step === 3) {
-        btnNext.textContent = 'Get a Custom Quote ✨';
+        btnNext.textContent = 'Get in Touch ✨';
       } else {
-        btnNext.textContent = 'Next Step →';
+        btnNext.textContent = 'Continue →';
       }
     }
   }
 
+  // Error handling for form validation
+  function clearErrors() {
+    document.querySelectorAll('.widget-error-msg').forEach(el => el.remove());
+    document.querySelectorAll('.widget-input.error').forEach(el => el.classList.remove('error'));
+  }
+
+  function showError(inputId, msg) {
+    const inputEl = document.getElementById(inputId);
+    if (!inputEl) return;
+    inputEl.classList.add('error');
+    
+    let errorEl = inputEl.parentNode.querySelector('.widget-error-msg');
+    if (!errorEl) {
+      errorEl = document.createElement('div');
+      errorEl.className = 'widget-error-msg';
+      inputEl.parentNode.insertBefore(errorEl, inputEl.nextSibling);
+    }
+    errorEl.textContent = msg;
+  }
+
+  // Clear error on input
+  document.querySelectorAll('.widget-input').forEach(input => {
+    input.addEventListener('input', function() {
+      if (this.classList.contains('error')) {
+        this.classList.remove('error');
+        const errorMsg = this.parentNode.querySelector('.widget-error-msg');
+        if (errorMsg) errorMsg.remove();
+      }
+    });
+  });
+
   // Validate current step
   function isStepValid() {
+    clearErrors();
+    let isValid = true;
+
     if (widgetState.step === 1) {
-      if (!widgetState.eventType) {
-        alert('Please select an event type to continue.');
-        return false;
-      }
-    } else if (widgetState.step === 2) {
-      // Room layout choice is optional, user is allowed to proceed without selecting
-      return true;
-    } else if (widgetState.step === 3) {
       const dateVal = document.getElementById('widget-date').value;
+      if (!dateVal) {
+        showError('widget-date', 'Please select a preferred event date.');
+        isValid = false;
+      }
+      if (isValid) widgetState.date = dateVal;
+    } else if (widgetState.step === 2) {
+      const guestInputEl = document.getElementById('widget-guests-input');
+      if (!guestInputEl || !guestInputEl.value || guestInputEl.value < 1) {
+        showError('widget-guests-input', 'Please enter a valid estimated guest count.');
+        isValid = false;
+      }
+      if (isValid) widgetState.guests = guestInputEl.value;
+    } else if (widgetState.step === 3) {
       const nameVal = document.getElementById('widget-name').value.trim();
       const emailVal = document.getElementById('widget-email').value.trim();
       const phoneVal = document.getElementById('widget-phone').value.trim();
+      const infoVal = document.getElementById('widget-info').value.trim();
 
-      if (!dateVal || !nameVal || !emailVal || !phoneVal) {
-        alert('Please complete all contact details to request your quote.');
-        return false;
+      if (!nameVal) {
+        showError('widget-name', 'Please enter your full name.');
+        isValid = false;
       }
-
-      // Quick Email validation
+      
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(emailVal)) {
-        alert('Please enter a valid email address.');
-        return false;
+      if (!emailVal) {
+        showError('widget-email', 'Please enter your email address.');
+        isValid = false;
+      } else if (!emailRegex.test(emailVal)) {
+        showError('widget-email', 'Please enter a valid email address.');
+        isValid = false;
+      }
+      
+      if (!phoneVal) {
+        showError('widget-phone', 'Please enter your phone number.');
+        isValid = false;
       }
 
-      widgetState.date = dateVal;
-      widgetState.name = nameVal;
-      widgetState.email = emailVal;
-      widgetState.phone = phoneVal;
+      if (isValid) {
+        widgetState.name = nameVal;
+        widgetState.email = emailVal;
+        widgetState.phone = phoneVal;
+        widgetState.info = infoVal;
+      }
     }
-    return true;
+    return isValid;
   }
 
   // Event Card selection
@@ -141,49 +268,21 @@ document.addEventListener('DOMContentLoaded', () => {
       card.classList.add('selected');
       widgetState.eventType = card.dataset.value;
       
-      // Auto advance to Step 2 for high converting UX
+      // Auto advance to Step 2 for high converting UX, but only if date is filled
       setTimeout(() => {
         if (widgetState.step === 1) {
-          widgetState.step = 2;
-          updateWidgetUI();
+          const dateVal = document.getElementById('widget-date').value;
+          if (dateVal) {
+            widgetState.date = dateVal;
+            widgetState.step = 2;
+            updateWidgetUI();
+          }
         }
       }, 300);
     });
   });
 
-  // Slider change
-  guestSlider.addEventListener('input', (e) => {
-    const val = parseInt(e.target.value);
-    widgetState.guests = val;
-    guestValOutput.textContent = val === 300 ? '300+' : val;
-    evaluateRoomConstraints(val);
-  });
-
-  // Highlight only possible rooms based on guest capacity
-  function evaluateRoomConstraints(guestCount) {
-    roomCards.forEach(card => {
-      const maxCap = parseInt(card.dataset.max);
-      if (guestCount > maxCap) {
-        card.classList.add('disabled');
-        if (card.classList.contains('selected')) {
-          card.classList.remove('selected');
-          widgetState.preferredRoom = '';
-        }
-      } else {
-        card.classList.remove('disabled');
-      }
-    });
-  }
-
-  // Room Select Card
-  roomCards.forEach(card => {
-    card.addEventListener('click', () => {
-      if (card.classList.contains('disabled')) return;
-      roomCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      widgetState.preferredRoom = card.dataset.value;
-    });
-  });
+  // No longer using guest slider and room cards
 
   // Button navigation clicks
   btnNext.addEventListener('click', () => {
@@ -206,26 +305,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function submitBookingLead() {
-    // Transition to Success panel
-    const panelsWrapper = document.querySelector('.step-panels-wrapper');
+    // Hide progress bar and nav buttons
+    const progressContainer = document.querySelector('.widget-progress-container');
     const navBtns = document.querySelector('.widget-nav-buttons');
     
-    // Clear height limit
-    panelsWrapper.style.minHeight = 'auto';
-    navBtns.style.display = 'none';
+    if(progressContainer) progressContainer.style.display = 'none';
+    if(navBtns) navBtns.style.display = 'none';
 
     stepPanels.forEach(panel => panel.classList.remove('active'));
     
-    const successPanel = document.createElement('div');
-    successPanel.className = 'success-panel';
-    successPanel.innerHTML = `
-      <div class="success-icon-wrapper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width: 36px; height: 36px; stroke-linecap: round; stroke-linejoin: round;"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-      <h3>Proposal Request Sent!</h3>
-      <p>Thank you, <strong>${widgetState.name}</strong>. We've locked in your requested date of <strong>${widgetState.date}</strong> in our review calendar.</p>
-      <p>Our team will email a custom quote for your <strong>${widgetState.eventType.toUpperCase()}</strong> event within 2-4 business hours.</p>
-      <button class="btn btn-primary" style="margin-top: 10px;" onclick="window.location.reload()">Plan Another Event</button>
-    `;
-    panelsWrapper.appendChild(successPanel);
+    // Activate confirmation panel (Step 4)
+    const confirmationPanel = document.querySelector('.step-panel[data-step="4"]');
+    if(confirmationPanel) {
+      confirmationPanel.classList.add('active');
+      const msgEl = document.getElementById('confirmation-message');
+      const evTypeStr = widgetState.eventType ? widgetState.eventType : 'upcoming event';
+      if(msgEl) {
+        msgEl.innerHTML = `Thanks, <strong>${widgetState.name}</strong>! We've received your request and are excited to help you plan your ${evTypeStr}. Our team will review your request and be in touch within 2–4 business hours to discuss your event, answer your questions, and help you create an unforgettable experience at The Gathering Conference Center.`;
+      }
+    }
   }
 
   // Initialize widget
@@ -745,5 +843,55 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('gathering-cookie-consent', 'declined');
       cookieBanner.style.display = 'none';
     });
+  }
+
+  /* ==========================================
+     HERO TYPEWRITER EFFECT
+     ========================================== */
+  const typewriterText = document.querySelector('.typewriter-text');
+  if (typewriterText) {
+    const events = [
+      "Corporate Meetings & Conferences",
+      "Weddings & Receptions",
+      "Banquets & Galas",
+      "Birthday Celebrations",
+      "Baby & Bridal Showers",
+      "Church & Faith-Based Events",
+      "Family Reunions",
+      "Holiday Parties",
+      "Fundraisers & Community Events",
+      "Training & Workshops",
+      "Graduation & Anniversary Celebrations"
+    ];
+    let eventIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function type() {
+      const currentEvent = events[eventIndex];
+      
+      if (isDeleting) {
+        typewriterText.textContent = currentEvent.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriterText.textContent = currentEvent.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 40 : 80;
+
+      if (!isDeleting && charIndex === currentEvent.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        eventIndex = (eventIndex + 1) % events.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+    
+    setTimeout(type, 1000);
   }
 });
