@@ -1416,6 +1416,38 @@ img {
   margin-bottom: 15px;
 }
 
+.catering-menu-categories {
+  font-family: var(--font-headings);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.catering-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: var(--white);
+  color: var(--primary);
+  border: 1px solid rgba(226, 179, 102, 0.3); /* subtle primary border */
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.catering-menu-btn:hover, .catering-menu-btn:focus {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(226, 179, 102, 0.2);
+}
+
 .catering-list-items {
   list-style: none;
   display: flex;
