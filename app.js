@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       btnPrev.style.visibility = 'visible';
       if (widgetState.step === 3) {
-        btnNext.textContent = 'Get in Touch ✨';
+        btnNext.textContent = 'Get in Touch';
       } else {
         btnNext.textContent = 'Continue →';
       }
@@ -959,5 +959,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     setTimeout(type, 1000);
+  }
+
+  // Handle Wizard Redirection CTAs
+  const wizardRedirectBtns = document.querySelectorAll('.wizard-redirect-btn');
+  const bookingWidget = document.getElementById('booking-widget');
+
+  if (wizardRedirectBtns.length > 0 && bookingWidget) {
+    wizardRedirectBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Only prevent default if it's an anchor link we want to handle smoothly
+        if (btn.tagName.toLowerCase() === 'a' && btn.getAttribute('href') === '#hero') {
+          e.preventDefault();
+          
+          // Close mobile menu if it's open
+          if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+          }
+          
+          // On desktop, scroll to hero top. On mobile, scroll directly to the widget.
+          const isMobile = window.innerWidth <= 992; // Using 992px as typical tablet/mobile breakpoint
+          const heroSection = document.getElementById('hero');
+          const targetElement = (isMobile && bookingWidget) ? bookingWidget : (heroSection || bookingWidget);
+
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+
+            // Detect when scrolling has finished
+            let scrollTimeout;
+            const scrollHandler = () => {
+              clearTimeout(scrollTimeout);
+              scrollTimeout = setTimeout(() => {
+                window.removeEventListener('scroll', scrollHandler);
+                
+                // Highlight the booking widget after scroll is complete
+                if (bookingWidget) {
+                  bookingWidget.classList.add('highlight-widget');
+                  
+                  // Remove highlight after animation
+                  setTimeout(() => {
+                    bookingWidget.classList.remove('highlight-widget');
+                  }, 2000);
+                }
+              }, 100); // 100ms without scroll event means scroll finished
+            };
+            
+            window.addEventListener('scroll', scrollHandler);
+
+            // Fallback: If already at the target (no scrolling needed)
+            // widget container has 100px scroll margin, hero has 0
+            const expectedOffset = (targetElement === bookingWidget) ? 100 : 0;
+            if (Math.abs(targetElement.getBoundingClientRect().top - expectedOffset) < 50) {
+              window.removeEventListener('scroll', scrollHandler);
+              if (bookingWidget) {
+                bookingWidget.classList.add('highlight-widget');
+                setTimeout(() => {
+                  bookingWidget.classList.remove('highlight-widget');
+                }, 2000);
+              }
+            }
+          }
+        }
+      });
+    });
   }
 });
