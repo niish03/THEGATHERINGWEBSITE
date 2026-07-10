@@ -1,5 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
+     PHONE AUTOFILL HANDLER
+     ========================================== */
+  const phoneInputs = document.querySelectorAll('input[type="tel"]');
+  phoneInputs.forEach(input => {
+    input.addEventListener('input', function(e) {
+      let digits = this.value.replace(/\D/g, '');
+      if (digits.length > 10) {
+        this.value = digits.slice(-10);
+      }
+    });
+  });
+
+  /* ==========================================
      SCROLL-SPY ACTIVE PAGE INDICATOR & STICKY HEADER
      ========================================== */
   const header = document.querySelector('.header');
@@ -262,23 +275,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Event Card selection
+  const otherEventContainer = document.getElementById('other-event-container');
+  const otherEventInput = document.getElementById('widget-other-event');
+
   eventTypeCards.forEach(card => {
     card.addEventListener('click', () => {
       eventTypeCards.forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       widgetState.eventType = card.dataset.value;
       
-      // Auto advance to Step 2 for high converting UX, but only if date is filled
-      setTimeout(() => {
-        if (widgetState.step === 1) {
-          const dateVal = document.getElementById('widget-date').value;
-          if (dateVal) {
-            widgetState.date = dateVal;
-            widgetState.step = 2;
-            updateWidgetUI();
+      if (widgetState.eventType === 'other') {
+        if (otherEventContainer) otherEventContainer.style.display = 'block';
+        // Do not auto-advance when "other" is selected so they can type
+      } else {
+        if (otherEventContainer) otherEventContainer.style.display = 'none';
+        
+        // Auto advance to Step 2 for high converting UX, but only if date is filled
+        setTimeout(() => {
+          if (widgetState.step === 1) {
+            const dateVal = document.getElementById('widget-date').value;
+            if (dateVal) {
+              widgetState.date = dateVal;
+              widgetState.step = 2;
+              updateWidgetUI();
+            }
           }
-        }
-      }, 300);
+        }, 300);
+      }
     });
   });
 
@@ -319,7 +342,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if(confirmationPanel) {
       confirmationPanel.classList.add('active');
       const msgEl = document.getElementById('confirmation-message');
-      const evTypeStr = widgetState.eventType ? widgetState.eventType : 'upcoming event';
+      
+      let evTypeStr = widgetState.eventType ? widgetState.eventType : 'upcoming event';
+      if (widgetState.eventType === 'other') {
+        const otherVal = document.getElementById('widget-other-event').value.trim();
+        if (otherVal) {
+          evTypeStr = otherVal;
+        } else {
+          evTypeStr = 'event';
+        }
+      }
+
       if(msgEl) {
         msgEl.innerHTML = `Thanks, <strong>${widgetState.name}</strong>! We've received your request and are excited to help you plan your ${evTypeStr}. Our team will review your request and be in touch within 2–4 business hours to discuss your event, answer your questions, and help you create an unforgettable experience at The Gathering Conference Center.`;
       }
