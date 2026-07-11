@@ -126,25 +126,25 @@
 
               <span class="widget-label">Event Type (Optional)</span>
               <div class="event-type-grid">
-                <div class="event-type-card" data-value="wedding">
-                  <!-- Ring Icon -->
-                  <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-5.83 15.86l-1.39 3.01a1 1 0 0 0 1.44 1.25l3.14-1.92A9 9 0 1 0 12 2zm0 15a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                  <span>Wedding</span>
+                <div class="event-type-card" data-value="celebrations">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5z"/><path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg>
+                  <span class="event-type-card-title">Celebrations</span>
+                  <span class="event-type-card-desc">Weddings, anniversaries, birthdays, showers, reunions</span>
                 </div>
                 <div class="event-type-card" data-value="corporate">
-                  <!-- Briefcase Icon -->
-                  <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                  <span>Corporate</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  <span class="event-type-card-title">Corporate</span>
+                  <span class="event-type-card-desc">Meetings, conferences, training, workshops</span>
                 </div>
-                <div class="event-type-card" data-value="party">
-                  <!-- Balloon/Cocktail Icon -->
-                  <svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                  <span>Social Party</span>
+                <div class="event-type-card" data-value="community-social">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span class="event-type-card-title">Community & Social</span>
+                  <span class="event-type-card-desc">Church events, fundraisers, banquets, nonprofit & community gatherings</span>
                 </div>
                 <div class="event-type-card" data-value="other">
-                  <!-- Other Icon -->
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
-                  <span>Other</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  <span class="event-type-card-title">Other</span>
+                  <span class="event-type-card-desc">For custom events and unique bookings</span>
                 </div>
               </div>
               <div id="other-event-container" style="display: none; margin-top: 15px;">
@@ -242,41 +242,54 @@
         <div class="room-visuals-column">
           <!-- Interactive SVG Floor Plan -->
           <div class="floorplan-container">
-            <svg class="floorplan-svg" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+            <div class="floorplan-header">
+              <h3 class="floorplan-title">Floor Plan</h3>
+              <p class="floorplan-hint">Click on any room to view details. Select multiple rooms to combine spaces.</p>
+            </div>
+            <svg class="floorplan-svg" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
               <g id="floorplan-group">
-                <!-- Room A -->
-                <rect id="fp-a" class="fp-room" x="5" y="5" width="167" height="240" rx="4" />
-                <text class="fp-room-label" x="88" y="115">Room A</text>
-                <text class="fp-room-sublabel" x="88" y="135">40 x 60 ft</text>
+                <!-- Room A (Honeysuckle) -->
+                <rect id="fp-a" class="fp-room" x="5" y="5" width="167" height="210" rx="8" />
+                <text class="fp-room-label fp-room-name" x="88" y="95">Honeysuckle</text>
+                <text class="fp-room-label fp-room-subtitle" x="88" y="115">Room</text>
+                <text class="fp-room-sublabel" x="88" y="140">40 × 60 ft</text>
 
                 <!-- Divider AB -->
-                <line id="partition-ab" class="fp-partition" x1="172" y1="5" x2="172" y2="245" />
+                <line id="partition-ab" class="fp-partition" x1="172" y1="5" x2="172" y2="215" />
 
-                <!-- Room B -->
-                <rect id="fp-b" class="fp-room" x="172" y="5" width="258" height="240" rx="4" />
-                <text class="fp-room-label" x="301" y="115">Room B</text>
-                <text class="fp-room-sublabel" x="301" y="135">62 x 60 ft</text>
+                <!-- Room B (Magnolia) -->
+                <rect id="fp-b" class="fp-room" x="172" y="5" width="258" height="210" rx="8" />
+                <text class="fp-room-label fp-room-name" x="301" y="95">Magnolia</text>
+                <text class="fp-room-label fp-room-subtitle" x="301" y="115">Room</text>
+                <text class="fp-room-sublabel" x="301" y="140">62 × 60 ft</text>
 
                 <!-- Divider BC -->
-                <line id="partition-bc" class="fp-partition" x1="430" y1="5" x2="430" y2="245" />
+                <line id="partition-bc" class="fp-partition" x1="430" y1="5" x2="430" y2="215" />
 
-                <!-- Room C -->
-                <rect id="fp-c" class="fp-room" x="430" y="5" width="146" height="240" rx="4" />
-                <text class="fp-room-label" x="503" y="115">Room C</text>
-                <text class="fp-room-sublabel" x="503" y="135">35 x 60 ft</text>
+                <!-- Room C (Blues) -->
+                <rect id="fp-c" class="fp-room" x="430" y="5" width="146" height="210" rx="8" />
+                <text class="fp-room-label fp-room-name" x="503" y="95">Blues</text>
+                <text class="fp-room-label fp-room-subtitle" x="503" y="115">Room</text>
+                <text class="fp-room-sublabel" x="503" y="140">35 × 60 ft</text>
 
                 <!-- Divider CD -->
-                <line id="partition-cd" class="fp-partition" x1="576" y1="5" x2="576" y2="245" />
+                <line id="partition-cd" class="fp-partition" x1="576" y1="5" x2="576" y2="215" />
 
-                <!-- Room D -->
-                <rect id="fp-d" class="fp-room" x="576" y="5" width="219" height="240" rx="4" />
-                <text class="fp-room-label" x="685" y="115">Room D</text>
-                <text class="fp-room-sublabel" x="685" y="135">55 x 60 ft</text>
+                <!-- Room D (Harmony) -->
+                <rect id="fp-d" class="fp-room" x="576" y="5" width="219" height="210" rx="8" />
+                <text class="fp-room-label fp-room-name" x="685" y="95">Harmony</text>
+                <text class="fp-room-label fp-room-subtitle" x="685" y="115">Room</text>
+                <text class="fp-room-sublabel" x="685" y="140">55 × 60 ft</text>
+
+                <!-- Grand Lobby Bar -->
+                <rect class="fp-lobby" x="5" y="230" width="790" height="58" rx="8" />
+                <text class="fp-lobby-label" x="400" y="258">Grand Lobby</text>
+                <text class="fp-lobby-sublabel" x="400" y="275">Reception · Lounge · Registration · Connects All Spaces</text>
               </g>
             </svg>
           </div>
 
-          <!-- Room Photo Slider (Bottom Left) -->
+          <!-- Room Photo Slider -->
           <div class="room-slider-container" id="room-slider">
             <div class="slider-wrapper">
               <button class="slider-arrow prev" id="slider-prev-btn" aria-label="Previous image">❮</button>
@@ -286,155 +299,64 @@
               <button class="slider-arrow next" id="slider-next-btn" aria-label="Next image">❯</button>
             </div>
             <div class="slider-info">
-              <div class="slider-caption" id="slider-caption">Room A - Boardroom Setup</div>
-              <div class="slider-dots" id="slider-dots">
-                <!-- Dots will be dynamically generated by JS -->
-              </div>
+              <div class="slider-caption" id="slider-caption">The Honeysuckle Room — Boardroom Setup</div>
+              <div class="slider-dots" id="slider-dots"></div>
             </div>
           </div>
         </div>
 
-        <!-- Room Details & Selectors -->
+        <!-- Room Details Panel -->
         <div class="room-details-panel">
-          <div class="room-selector-tabs">
-            <button class="room-tab-btn active" data-room="a">Room A</button>
-            <button class="room-tab-btn" data-room="b">Room B</button>
-            <button class="room-tab-btn" data-room="c">Room C</button>
-            <button class="room-tab-btn" data-room="d">Room D</button>
-            <button class="room-tab-btn" data-room="combined">Combined</button>
-          </div>
+          <!-- Single card — always shown, JS updates content dynamically -->
+          <div class="room-info-card">
+            <div class="room-card-header">
+              <h3 class="room-title" id="detail-room-name">The Honeysuckle Room</h3>
+              <p class="room-tagline" id="detail-room-tagline">Warm. Inviting. Perfect for intimate events.</p>
+            </div>
 
-          <!-- Room A Card -->
-          <div class="room-info-card active" id="info-a">
-            <div class="room-header">
-              <h3 class="room-title">Room A</h3>
-              <div class="room-meta">
-                <span class="room-meta-item">📏 Dimensions: 40 × 60 ft</span>
-                <span class="room-meta-item">✨ Capacity: Up to 60 Guests</span>
+            <!-- Stat Row: Capacity + Dimensions -->
+            <div class="room-stat-row">
+              <div class="stat-section stat-section-capacity">
+                <div class="stat-section-header">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span class="stat-section-label">Capacity</span>
+                </div>
+                <div class="stat-values">
+                  <div class="stat-value-item">
+                    <div class="stat-value-number" id="detail-banquet">120</div>
+                    <div class="stat-value-label">Banquet</div>
+                  </div>
+                  <div class="stat-value-item">
+                    <div class="stat-value-number" id="detail-theater">230</div>
+                    <div class="stat-value-label">Theater</div>
+                  </div>
+                </div>
+              </div>
+              <div class="stat-section stat-section-dimensions">
+                <div class="stat-section-header">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  <span class="stat-section-label">Dimensions</span>
+                </div>
+                <div class="stat-dimension-value" id="detail-dimensions">40 × 60 ft</div>
               </div>
             </div>
-            <div class="room-spec-grid">
-              <div class="spec-box">
-                <div class="spec-title">Square Footage</div>
-                <div class="spec-value">2,400 sq. ft.</div>
-              </div>
-              <div class="spec-box">
-                <div class="spec-title">Ideal Layouts</div>
-                <div class="spec-value">Classroom, Boardroom, Banquet</div>
-              </div>
-            </div>
-            <p class="room-description">Great for meetings, private gatherings, and smaller events. Room A offers an intimate, highly focused setting equipped with direct access to power terminals.</p>
-            <div class="capacity-alert">
-              <div class="capacity-alert-title">Sound-Reducing Sliding Dividers</div>
-              <div class="capacity-alert-desc">Separated by acoustic panel dividers to guarantee privacy from neighboring events. Slide them open to merge with Room B.</div>
-            </div>
-          </div>
 
-          <!-- Room B Card -->
-          <div class="room-info-card" id="info-b">
-            <div class="room-header">
-              <h3 class="room-title">Room B</h3>
-              <div class="room-meta">
-                <span class="room-meta-item">📏 Dimensions: 62 × 60 ft</span>
-                <span class="room-meta-item">✨ Capacity: Up to 110 Guests</span>
+            <!-- Description -->
+            <p class="room-description" id="detail-description">Warm, inviting, and perfect for intimate events. The Honeysuckle Room offers a refined space ideal for bridal showers, small weddings, workshops, and private meetings.</p>
+
+            <!-- Perfect For -->
+            <div class="perfect-for-section">
+              <h4 class="perfect-for-heading">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Perfect For
+              </h4>
+              <div class="perfect-for-grid" id="detail-perfect-for">
+                <!-- Populated by JS -->
               </div>
-            </div>
-            <div class="room-spec-grid">
-              <div class="spec-box">
-                <div class="spec-title">Square Footage</div>
-                <div class="spec-value">3,720 sq. ft.</div>
-              </div>
-              <div class="spec-box">
-                <div class="spec-title">Ideal Layouts</div>
-                <div class="spec-value">Theater, Reception, Banquet</div>
-              </div>
-            </div>
-            <p class="room-description">A spacious option for larger setups and special occasions. Room B provides a grand feel, making it the perfect setting for upscale receptions and social dinners.</p>
-            <div class="capacity-alert">
-              <div class="capacity-alert-title">Need More Space?</div>
-              <div class="capacity-alert-desc">Combine Room B with Rooms A and C by sliding back the sound-reducing partition walls to host larger dinner parties.</div>
             </div>
           </div>
 
-          <!-- Room C Card -->
-          <div class="room-info-card" id="info-c">
-            <div class="room-header">
-              <h3 class="room-title">Room C</h3>
-              <div class="room-meta">
-                <span class="room-meta-item">📏 Dimensions: 35 × 60 ft</span>
-                <span class="room-meta-item">✨ Capacity: Up to 50 Guests</span>
-              </div>
-            </div>
-            <div class="room-spec-grid">
-              <div class="spec-box">
-                <div class="spec-title">Square Footage</div>
-                <div class="spec-value">2,100 sq. ft.</div>
-              </div>
-              <div class="spec-box">
-                <div class="spec-title">Ideal Layouts</div>
-                <div class="spec-value">Training Seminars, Small Showers</div>
-              </div>
-            </div>
-            <p class="room-description">Ideal for focused events, trainings, and celebrations. Room C offers a cozy, highly functional space for baby showers, training seminars, or meetings.</p>
-            <div class="capacity-alert">
-              <div class="capacity-alert-title">Modular Options</div>
-              <div class="capacity-alert-desc">Operates independently or easily integrates with adjacent rooms for buffet line setups.</div>
-            </div>
-          </div>
-
-          <!-- Room D Card -->
-          <div class="room-info-card" id="info-d">
-            <div class="room-header">
-              <h3 class="room-title">Room D</h3>
-              <div class="room-meta">
-                <span class="room-meta-item">📏 Dimensions: 55 × 60 ft</span>
-                <span class="room-meta-item">✨ Capacity: Up to 80 Guests</span>
-              </div>
-            </div>
-            <div class="room-spec-grid">
-              <div class="spec-box">
-                <div class="spec-title">Square Footage</div>
-                <div class="spec-value">3,300 sq. ft.</div>
-              </div>
-              <div class="spec-box">
-                <div class="spec-title">Ideal Layouts</div>
-                <div class="spec-value">Banquet, Cocktail Party, Dance</div>
-              </div>
-            </div>
-            <p class="room-description">Flexible space for banquets, parties, and community events. Room D features high power capacity and an layout adaptable for dance floors and music.</p>
-            <div class="capacity-alert">
-              <div class="capacity-alert-title">Acoustic Separation</div>
-              <div class="capacity-alert-desc">Seals tightly off from Room C, providing an excellent buffer zone for private celebrations.</div>
-            </div>
-          </div>
-
-          <!-- Combined Room Card -->
-          <div class="room-info-card" id="info-combined">
-            <div class="room-header">
-              <h3 class="room-title">Combined Grand Ballroom</h3>
-              <div class="room-meta">
-                <span class="room-meta-item">📏 Dimensions: 192 × 60 ft</span>
-                <span class="room-meta-item">✨ Capacity: Up to 300 Guests</span>
-              </div>
-            </div>
-            <div class="room-spec-grid">
-              <div class="spec-box">
-                <div class="spec-title">Square Footage</div>
-                <div class="spec-value">11,520 sq. ft.</div>
-              </div>
-              <div class="spec-box">
-                <div class="spec-title">Ideal Layouts</div>
-                <div class="spec-value">Grand Banquet, Exhibition, Gala</div>
-              </div>
-            </div>
-            <p class="room-description">When all three acoustic sliding partition dividers are retracted, our venue transforms into a single, breathtaking grand ballroom. It accommodates large-scale weddings, galas, and regional expos.</p>
-            <div class="capacity-alert" style="border-left-color: var(--success); background-color: rgba(16, 185, 129, 0.08);">
-              <div class="capacity-alert-title" style="color: var(--success);">All Dividers Retracted</div>
-              <div class="capacity-alert-desc">Provides a completely seamless flow across 11,520 sq. ft. of pristine, event-ready space.</div>
-            </div>
-          </div>
-
-          <a href="#hero" class="btn btn-primary wizard-redirect-btn" style="width: 100%; margin-top: 20px; display: block; text-align: center;">Let's start planning</a>
+          <a href="#hero" class="btn btn-primary wizard-redirect-btn" style="width: 100%; margin-top: 24px; display: block; text-align: center;">Let's Start Planning</a>
         </div>
       </div>
     </div>

@@ -376,14 +376,18 @@ document.addEventListener('DOMContentLoaded', () => {
       confirmationPanel.classList.add('active');
       const msgEl = document.getElementById('confirmation-message');
       
-      let evTypeStr = widgetState.eventType ? widgetState.eventType : 'upcoming event';
-      if (widgetState.eventType === 'other') {
+      let evTypeStr = 'upcoming event';
+      if (widgetState.eventType === 'celebrations') {
+        evTypeStr = 'celebration';
+      } else if (widgetState.eventType === 'corporate') {
+        evTypeStr = 'corporate event';
+      } else if (widgetState.eventType === 'community-social') {
+        evTypeStr = 'community or social event';
+      } else if (widgetState.eventType === 'other') {
         const otherVal = document.getElementById('widget-other-event').value.trim();
-        if (otherVal) {
-          evTypeStr = otherVal;
-        } else {
-          evTypeStr = 'event';
-        }
+        evTypeStr = otherVal ? otherVal : 'event';
+      } else if (widgetState.eventType) {
+        evTypeStr = widgetState.eventType;
       }
 
       if(msgEl) {
@@ -397,95 +401,204 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================
-     INTERACTIVE VENUE SHOWCASE (FLOOR PLAN)
+     INTERACTIVE VENUE SHOWCASE (MULTI-SELECT)
      ========================================== */
-  const roomTabBtns = document.querySelectorAll('.room-tab-btn');
-  const roomInfoCards = document.querySelectorAll('.room-info-card');
   const svgRooms = document.querySelectorAll('.fp-room');
   const svgPartitions = document.querySelectorAll('.fp-partition');
+  const selectedRooms = new Set(['a']);
 
-  function selectRoom(roomId) {
-    // 1. Update Tabs
-    roomTabBtns.forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.room === roomId) btn.classList.add('active');
-    });
+  // Room Data
+  const roomData = {
+    a: {
+      name: 'The Honeysuckle Room',
+      tagline: 'Warm. Inviting. Perfect for intimate events.',
+      dimensions: '40 × 60 ft',
+      widthFt: 40,
+      banquet: 120,
+      theater: 230,
+      description: 'Warm, inviting, and perfect for intimate events. The Honeysuckle Room offers a refined space ideal for bridal showers, small weddings, workshops, and private meetings.',
+      perfectFor: ['Bridal & Baby Showers', 'Birthday Celebrations', 'Small Weddings', 'Meetings', 'Workshops', 'Training Sessions'],
+      images: [
+        { src: 'assets/room_a_meeting.jpg', caption: 'The Honeysuckle Room — Professional boardroom setup' },
+        { src: 'assets/gallery_corp.jpg', caption: 'The Honeysuckle Room — Seminar configuration' },
+        { src: 'assets/gallery_wedding.jpg', caption: 'The Honeysuckle Room — Intimate banquet setting' }
+      ]
+    },
+    b: {
+      name: 'The Magnolia Room',
+      tagline: 'Spacious. Impressive. Perfect for large gatherings.',
+      dimensions: '62 × 60 ft',
+      widthFt: 62,
+      banquet: 210,
+      theater: 500,
+      description: 'Spacious, impressive, and perfect for large gatherings. The Magnolia Room delivers a grand atmosphere for weddings, conferences, galas, and corporate events.',
+      perfectFor: ['Weddings', 'Conferences', 'Galas', 'Large Community Events', 'Banquets', 'Corporate Events'],
+      images: [
+        { src: 'assets/room_b_banquet.jpg', caption: 'The Magnolia Room — Grand banquet configuration' },
+        { src: 'assets/gallery_corp.jpg', caption: 'The Magnolia Room — Corporate event layout' },
+        { src: 'assets/hero.jpg', caption: 'The Magnolia Room — Elegant reception setup' }
+      ]
+    },
+    c: {
+      name: 'The Blues Room',
+      tagline: 'Versatile. Comfortable. Great for meetings & workshops.',
+      dimensions: '35 × 60 ft',
+      widthFt: 35,
+      banquet: 120,
+      theater: 230,
+      description: 'Versatile, comfortable, and great for focused gatherings. The Blues Room is an excellent choice for corporate meetings, birthday parties, receptions, and training seminars.',
+      perfectFor: ['Corporate Meetings', 'Birthday Parties', 'Receptions', 'Training Seminars', 'Workshops'],
+      images: [
+        { src: 'assets/gallery_corp.jpg', caption: 'The Blues Room — Workshop & training setup' },
+        { src: 'assets/room_a_meeting.jpg', caption: 'The Blues Room — Meeting table layout' },
+        { src: 'assets/gallery_wedding.jpg', caption: 'The Blues Room — Celebration setting' }
+      ]
+    },
+    d: {
+      name: 'The Harmony Room',
+      tagline: 'Elegant. Functional. Made for bigger celebrations.',
+      dimensions: '55 × 60 ft',
+      widthFt: 55,
+      banquet: 210,
+      theater: 500,
+      description: 'Elegant, functional, and made for bigger celebrations. The Harmony Room provides ample space for corporate celebrations, large receptions, banquets, and community events.',
+      perfectFor: ['Corporate Celebrations', 'Large Receptions', 'Banquets', 'Community Events', 'Holiday Parties'],
+      images: [
+        { src: 'assets/room_b_banquet.jpg', caption: 'The Harmony Room — Banquet configuration' },
+        { src: 'assets/hero.jpg', caption: 'The Harmony Room — Large event layout' },
+        { src: 'assets/gallery_wedding.jpg', caption: 'The Harmony Room — Celebration decor' }
+      ]
+    }
+  };
 
-    // 2. Update Room Description/Info Cards
-    roomInfoCards.forEach(card => {
-      card.classList.remove('active');
-      if (card.id === `info-${roomId}`) card.classList.add('active');
-    });
+  // Small SVG icons for Perfect For items
+  const pfIcons = {
+    'Bridal & Baby Showers': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    'Birthday Celebrations': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    'Small Weddings': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    'Meetings': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    'Workshops': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+    'Training Sessions': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    'Weddings': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    'Conferences': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+    'Galas': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    'Large Community Events': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    'Banquets': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>',
+    'Corporate Events': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    'Corporate Meetings': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    'Birthday Parties': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    'Receptions': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>',
+    'Training Seminars': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    'Corporate Celebrations': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    'Large Receptions': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    'Community Events': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    'Holiday Parties': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+  };
+  const defaultPfIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
-    // 3. Highlight SVG Room Group
+  // Room order for adjacency checks
+  const roomOrder = ['a', 'b', 'c', 'd'];
+  const partitionMap = { 'a-b': 'partition-ab', 'b-c': 'partition-bc', 'c-d': 'partition-cd' };
+
+  function updateVenueUI() {
+    // 1. Update SVG highlights
     svgRooms.forEach(room => {
-      room.classList.remove('selected');
-      if (room.id === `fp-${roomId}`) {
-        room.classList.add('selected');
-      }
+      const rid = room.id.replace('fp-', '');
+      room.classList.toggle('selected', selectedRooms.has(rid));
     });
 
-    // 4. Handle Partition Openings (Partitions are: partition-ab, partition-bc, partition-cd)
-    if (roomId === 'combined') {
-      // Highlight ALL SVG rooms together
-      svgRooms.forEach(room => room.classList.add('selected'));
-      // Open all dividers
-      svgPartitions.forEach(part => part.classList.add('open'));
-    } else {
-      // Close dividers
-      svgPartitions.forEach(part => part.classList.remove('open'));
+    // 2. Update partitions — open between adjacent selected rooms
+    svgPartitions.forEach(part => part.classList.remove('open'));
+    for (let i = 0; i < roomOrder.length - 1; i++) {
+      const a = roomOrder[i], b = roomOrder[i + 1];
+      if (selectedRooms.has(a) && selectedRooms.has(b)) {
+        const partId = partitionMap[`${a}-${b}`];
+        const partEl = document.getElementById(partId);
+        if (partEl) partEl.classList.add('open');
+      }
     }
 
-    // 5. Update the bottom-left image slider
-    initSlider(roomId);
+    const selArray = Array.from(selectedRooms);
+    if (selArray.length === 0) {
+      selectedRooms.add('a');
+      updateVenueUI();
+      return;
+    }
+
+    // 3. Populate single card with data (combined if multiple)
+    if (selArray.length === 1) {
+      const data = roomData[selArray[0]];
+      document.getElementById('detail-room-name').textContent = data.name;
+      document.getElementById('detail-room-tagline').textContent = data.tagline;
+      document.getElementById('detail-banquet').textContent = data.banquet;
+      document.getElementById('detail-theater').textContent = data.theater;
+      document.getElementById('detail-dimensions').textContent = data.dimensions;
+      document.getElementById('detail-description').textContent = data.description;
+
+      // Perfect for — icon-prefixed grid
+      const pfContainer = document.getElementById('detail-perfect-for');
+      pfContainer.innerHTML = data.perfectFor.map(tag => {
+        const icon = pfIcons[tag] || defaultPfIcon;
+        return `<div class="pf-item">${icon}<span>${tag}</span></div>`;
+      }).join('');
+    } else {
+      // Combined: aggregate values dynamically
+      const names = selArray.map(rid => roomData[rid].name.replace('The ', '').replace(' Room', ''));
+      const totalBanquet = selArray.reduce((sum, rid) => sum + roomData[rid].banquet, 0);
+      const totalTheater = selArray.reduce((sum, rid) => sum + roomData[rid].theater, 0);
+      const totalWidth = selArray.reduce((sum, rid) => sum + roomData[rid].widthFt, 0);
+
+      document.getElementById('detail-room-name').textContent = names.join(' + ');
+      document.getElementById('detail-room-tagline').textContent = `${selArray.length} rooms combined for your event`;
+      document.getElementById('detail-banquet').textContent = totalBanquet;
+      document.getElementById('detail-theater').textContent = totalTheater;
+      document.getElementById('detail-dimensions').textContent = `${totalWidth} × 60 ft`;
+
+      // Build combined description
+      const roomNamesList = selArray.map(rid => roomData[rid].name).join(', ');
+      document.getElementById('detail-description').textContent = `Combine ${roomNamesList} by retracting our acoustic sliding partition dividers to create a seamlessly connected event space of ${totalWidth} × 60 ft — ideal for large-scale events.`;
+
+      // Merge unique perfect-for tags from all selected rooms
+      const allTags = new Set();
+      selArray.forEach(rid => roomData[rid].perfectFor.forEach(t => allTags.add(t)));
+      allTags.add('Large Weddings');
+      allTags.add('Galas');
+      allTags.add('Exhibitions');
+
+      const pfContainer = document.getElementById('detail-perfect-for');
+      pfContainer.innerHTML = Array.from(allTags).map(tag => {
+        const icon = pfIcons[tag] || defaultPfIcon;
+        return `<div class="pf-item">${icon}<span>${tag}</span></div>`;
+      }).join('');
+    }
+
+    // 4. Update slider
+    initSlider(selArray);
   }
 
-  // Bind tabs click
-  roomTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      selectRoom(btn.dataset.room);
-    });
-  });
+  // Toggle room selection
+  function toggleRoom(roomId) {
+    if (selectedRooms.has(roomId)) {
+      if (selectedRooms.size > 1) {
+        selectedRooms.delete(roomId);
+      }
+    } else {
+      selectedRooms.add(roomId);
+    }
+    updateVenueUI();
+  }
 
-  // Bind SVG elements click
+  // Bind SVG room clicks
   svgRooms.forEach(room => {
     room.addEventListener('click', () => {
       const roomId = room.id.replace('fp-', '');
-      selectRoom(roomId);
+      toggleRoom(roomId);
     });
   });
 
   /* ==========================================
-     ROOM IMAGE SLIDER (BOTTOM LEFT)
+     ROOM IMAGE SLIDER
      ========================================== */
-  const roomImages = {
-    a: [
-      { src: 'assets/room_a_meeting.jpg', caption: 'Room A - Professional boardroom setup featuring polished timber wood tables.' },
-      { src: 'assets/gallery_corp.jpg', caption: 'Room A - Seminar rows and screen setups.' },
-      { src: 'assets/gallery_wedding.jpg', caption: 'Room A - Intimate banquet tables with floral centerpieces.' }
-    ],
-    b: [
-      { src: 'assets/room_b_banquet.jpg', caption: 'Room B - Spacious social dinner setup with warm string lighting overhead.' },
-      { src: 'assets/gallery_corp.jpg', caption: 'Room B - Corporate classroom presentation layout.' },
-      { src: 'assets/hero.jpg', caption: 'Room B - Large ballroom banquet configuration.' }
-    ],
-    c: [
-      { src: 'assets/gallery_corp.jpg', caption: 'Room C - Focused workshop presentation classroom setup.' },
-      { src: 'assets/room_a_meeting.jpg', caption: 'Room C - Training table layout configurations.' },
-      { src: 'assets/gallery_wedding.jpg', caption: 'Room C - Rehearsal dinners and bridal shower settings.' }
-    ],
-    d: [
-      { src: 'assets/room_b_banquet.jpg', caption: 'Room D - Flexible cocktail party tall-tables configuration.' },
-      { src: 'assets/hero.jpg', caption: 'Room D - Family reunion banquet layout.' },
-      { src: 'assets/gallery_wedding.jpg', caption: 'Room D - Custom decor structure detail details.' }
-    ],
-    combined: [
-      { src: 'assets/hero.jpg', caption: 'Combined Ballroom - Full capacity wedding reception banquet tables.' },
-      { src: 'assets/gallery_corp.jpg', caption: 'Combined Ballroom - Grand scale conventions facing speaker stage.' },
-      { src: 'assets/room_b_banquet.jpg', caption: 'Combined Ballroom - Grand gala social layout.' }
-    ]
-  };
-
   let currentSliderImages = [];
   let sliderIndex = 0;
 
@@ -497,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderSlider() {
     if (!currentSliderImages.length) return;
-    
+
     // Update image & caption with smooth fade transition
     if (sliderImg) {
       sliderImg.style.opacity = '0';
@@ -522,8 +635,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function initSlider(roomId) {
-    currentSliderImages = roomImages[roomId] || [];
+  function initSlider(roomIds) {
+    // Aggregate images from all selected rooms
+    currentSliderImages = [];
+    roomIds.forEach(rid => {
+      if (roomData[rid] && roomData[rid].images) {
+        currentSliderImages.push(...roomData[rid].images);
+      }
+    });
     sliderIndex = 0;
     renderSlider();
   }
@@ -554,9 +673,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Select Room A by default
-  if (roomTabBtns && roomTabBtns.length > 0) {
-    selectRoom('a');
+  // Initialize with Honeysuckle Room selected
+  if (svgRooms && svgRooms.length > 0) {
+    updateVenueUI();
   }
 
   /* ==========================================
