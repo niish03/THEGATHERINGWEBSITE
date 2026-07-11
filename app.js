@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Web3Forms Access Key configuration placeholder
+  const WEB3FORMS_ACCESS_KEY = '6595d0b1-3bdc-43ca-80dd-e75e1f0515fe';
+
   /* ==========================================
      PHONE AUTOFILL HANDLER
      ========================================== */
@@ -360,41 +363,102 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function submitBookingLead() {
-    // Hide progress bar and nav buttons
-    const progressContainer = document.querySelector('.widget-progress-container');
-    const navBtns = document.querySelector('.widget-nav-buttons');
-    
-    if(progressContainer) progressContainer.style.display = 'none';
-    if(navBtns) navBtns.style.display = 'none';
+  async function submitBookingLead() {
+    // 1. Show loading state on the button
+    const originalBtnText = btnNext.textContent;
+    btnNext.disabled = true;
+    btnNext.textContent = 'Sending...';
+    btnPrev.disabled = true;
 
-    stepPanels.forEach(panel => panel.classList.remove('active'));
-    
-    // Activate confirmation panel (Step 4)
-    const confirmationPanel = document.querySelector('.step-panel[data-step="4"]');
-    if(confirmationPanel) {
-      confirmationPanel.classList.add('active');
-      const msgEl = document.getElementById('confirmation-message');
-      
-      let evTypeStr = 'upcoming event';
-      if (widgetState.eventType === 'celebrations') {
-        evTypeStr = 'celebration';
-      } else if (widgetState.eventType === 'corporate') {
-        evTypeStr = 'corporate event';
-      } else if (widgetState.eventType === 'community-social') {
-        evTypeStr = 'community or social event';
-      } else if (widgetState.eventType === 'other') {
-        const otherVal = document.getElementById('widget-other-event').value.trim();
-        evTypeStr = otherVal ? otherVal : 'event';
-      } else if (widgetState.eventType) {
-        evTypeStr = widgetState.eventType;
+    // Clear any previous error message
+    const existingError = document.getElementById('widget-submit-error');
+    if (existingError) existingError.remove();
+
+    // Prepare Web3Forms payload
+    let evTypeStr = '';
+    if (widgetState.eventType === 'celebrations') {
+      evTypeStr = 'celebration';
+    } else if (widgetState.eventType === 'corporate') {
+      evTypeStr = 'corporate event';
+    } else if (widgetState.eventType === 'community-social') {
+      evTypeStr = 'community or social event';
+    } else if (widgetState.eventType === 'other') {
+      const otherVal = document.getElementById('widget-other-event').value.trim();
+      evTypeStr = otherVal ? otherVal : '';
+    } else if (widgetState.eventType) {
+      evTypeStr = widgetState.eventType;
+    }
+
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `New Event Inquiry from ${widgetState.name}`,
+      from_name: 'The Gathering Website',
+      name: widgetState.name,
+      email: widgetState.email,
+      phone: widgetState.phone,
+      event_type: evTypeStr || 'None provided',
+      guest_count: widgetState.guests,
+      preferred_date: widgetState.date,
+      additional_info: widgetState.info || 'None provided'
+    };
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // Hide progress bar and nav buttons
+        const progressContainer = document.querySelector('.widget-progress-container');
+        const navBtns = document.querySelector('.widget-nav-buttons');
+        
+        if (progressContainer) progressContainer.style.display = 'none';
+        if (navBtns) navBtns.style.display = 'none';
+
+        stepPanels.forEach(panel => panel.classList.remove('active'));
+        
+        // Activate confirmation panel (Step 4)
+        const confirmationPanel = document.querySelector('.step-panel[data-step="4"]');
+        if (confirmationPanel) {
+          confirmationPanel.classList.add('active');
+          const msgEl = document.getElementById('confirmation-message');
+
+          if (msgEl) {
+            const rawName = widgetState.name ? widgetState.name.trim().split(' ')[0] : '';
+            const firstName = rawName ? rawName.charAt(0).toUpperCase() + rawName.slice(1) : '';
+            const greeting = firstName ? `Thanks, <strong>${firstName}</strong>!` : 'Thanks!';
+            msgEl.innerHTML = `${greeting} We've received your request and will contact you within 2–4 business hours to discuss your event and answer any questions.`;
+          }
+        }
+      } else {
+        throw new Error(result.message || 'Form submission failed.');
       }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      
+      // Re-enable buttons
+      btnNext.disabled = false;
+      btnNext.textContent = originalBtnText;
+      btnPrev.disabled = false;
 
-      if (msgEl) {
-        const rawName = widgetState.name ? widgetState.name.trim().split(' ')[0] : '';
-        const firstName = rawName ? rawName.charAt(0).toUpperCase() + rawName.slice(1) : '';
-        const greeting = firstName ? `Thanks, <strong>${firstName}</strong>!` : 'Thanks!';
-        msgEl.innerHTML = `${greeting} We've received your request and will contact you within 2–4 business hours to discuss your event and answer any questions.`;
+      // Show user-friendly error message in Step 3
+      const step3Panel = document.querySelector('.step-panel[data-step="3"]');
+      if (step3Panel) {
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'widget-submit-error';
+        errorDiv.style.color = '#ef4444';
+        errorDiv.style.fontSize = '0.9rem';
+        errorDiv.style.marginTop = '15px';
+        errorDiv.style.textAlign = 'center';
+        errorDiv.innerHTML = `⚠️ Submission failed. Please check your connection and try again.`;
+        step3Panel.appendChild(errorDiv);
       }
     }
   }
