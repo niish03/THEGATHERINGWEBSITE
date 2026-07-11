@@ -390,8 +390,11 @@ document.addEventListener('DOMContentLoaded', () => {
         evTypeStr = widgetState.eventType;
       }
 
-      if(msgEl) {
-        msgEl.innerHTML = `Thanks, <strong>${widgetState.name}</strong>! We've received your request and are excited to help you plan your ${evTypeStr}. Our team will review your request and be in touch within 2–4 business hours to discuss your event, answer your questions, and help you create an unforgettable experience at The Gathering Conference Center.`;
+      if (msgEl) {
+        const rawName = widgetState.name ? widgetState.name.trim().split(' ')[0] : '';
+        const firstName = rawName ? rawName.charAt(0).toUpperCase() + rawName.slice(1) : '';
+        const greeting = firstName ? `Thanks, <strong>${firstName}</strong>!` : 'Thanks!';
+        msgEl.innerHTML = `${greeting} We've received your request and will contact you within 2–4 business hours to discuss your event and answer any questions.`;
       }
     }
   }
