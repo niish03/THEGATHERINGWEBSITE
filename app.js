@@ -486,9 +486,9 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Warm, inviting, and perfect for intimate events. The Honeysuckle Room offers a refined space ideal for bridal showers, small weddings, workshops, and private meetings.',
       perfectFor: ['Bridal & Baby Showers', 'Birthday Celebrations', 'Small Weddings', 'Meetings', 'Workshops', 'Training Sessions'],
       images: [
-        { src: 'assets/room_a_meeting.jpg', caption: 'The Honeysuckle Room — Professional boardroom setup' },
-        { src: 'assets/gallery_corp.jpg', caption: 'The Honeysuckle Room — Seminar configuration' },
-        { src: 'assets/gallery_wedding.jpg', caption: 'The Honeysuckle Room — Intimate banquet setting' }
+        { src: 'assets/photos/Honeysuckle1.png', caption: 'The Honeysuckle Room — Banquet setup with crystal chandelier & projection screen' },
+        { src: 'assets/photos/Entrance1.png', caption: 'The Honeysuckle Room — Dedicated entrance (Door 1)' },
+        { src: 'assets/photos/Lobby1.png', caption: 'Grand Lobby — Welcoming lounge connecting to The Honeysuckle Room' }
       ]
     },
     b: {
@@ -501,9 +501,9 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Spacious, impressive, and perfect for large gatherings. The Magnolia Room delivers a grand atmosphere for weddings, conferences, galas, and corporate events.',
       perfectFor: ['Weddings', 'Conferences', 'Galas', 'Large Community Events', 'Banquets', 'Corporate Events'],
       images: [
-        { src: 'assets/room_b_banquet.jpg', caption: 'The Magnolia Room — Grand banquet configuration' },
-        { src: 'assets/gallery_corp.jpg', caption: 'The Magnolia Room — Corporate event layout' },
-        { src: 'assets/hero.jpg', caption: 'The Magnolia Room — Elegant reception setup' }
+        { src: 'assets/photos/Magnolia1.png', caption: 'The Magnolia Room — Grand banquet configuration with partition dividers visible' },
+        { src: 'assets/photos/Magnolia2.png', caption: 'The Magnolia Room — Spacious open layout for large events' },
+        { src: 'assets/photos/Entrance2.png', caption: 'The Magnolia Room — Dedicated entrance (Door 2)' }
       ]
     },
     c: {
@@ -516,9 +516,9 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Versatile, comfortable, and great for focused gatherings. The Blues Room is an excellent choice for corporate meetings, birthday parties, receptions, and training seminars.',
       perfectFor: ['Corporate Meetings', 'Birthday Parties', 'Receptions', 'Training Seminars', 'Workshops'],
       images: [
-        { src: 'assets/gallery_corp.jpg', caption: 'The Blues Room — Workshop & training setup' },
-        { src: 'assets/room_a_meeting.jpg', caption: 'The Blues Room — Meeting table layout' },
-        { src: 'assets/gallery_wedding.jpg', caption: 'The Blues Room — Celebration setting' }
+        { src: 'assets/photos/Blues1.png', caption: 'The Blues Room — Elegant banquet setup with chandeliers' },
+        { src: 'assets/photos/Entrance3.png', caption: 'The Blues Room — Dedicated entrance (Door 3)' },
+        { src: 'assets/photos/Lobby3.png', caption: 'Grand Lobby — Reception & lounge area adjacent to The Blues Room' }
       ]
     },
     d: {
@@ -531,9 +531,9 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Elegant, functional, and made for bigger celebrations. The Harmony Room provides ample space for corporate celebrations, large receptions, banquets, and community events.',
       perfectFor: ['Corporate Celebrations', 'Large Receptions', 'Banquets', 'Community Events', 'Holiday Parties'],
       images: [
-        { src: 'assets/room_b_banquet.jpg', caption: 'The Harmony Room — Banquet configuration' },
-        { src: 'assets/hero.jpg', caption: 'The Harmony Room — Large event layout' },
-        { src: 'assets/gallery_wedding.jpg', caption: 'The Harmony Room — Celebration decor' }
+        { src: 'assets/photos/Harmony1.png', caption: 'The Harmony Room — Grand banquet layout with elegant ring chandeliers' },
+        { src: 'assets/photos/Entrance4.png', caption: 'The Harmony Room — Dedicated entrance (Door 4)' },
+        { src: 'assets/photos/Lobby2.png', caption: 'Grand Lobby — Spacious lounge connecting to The Harmony Room' }
       ]
     }
   };

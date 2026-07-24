@@ -216,7 +216,7 @@ img {
 }
 
 .header.scrolled .logo-img {
-  filter: brightness(0) invert(1);
+  /* keep original logo image presentation */
 }
 
 .header.scrolled .nav-link {
@@ -420,7 +420,7 @@ img {
   padding-top: calc(var(--header-height) + 40px);
   display: flex;
   align-items: center;
-  background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('assets/hero.jpg');
+  background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.80)), url('assets/photos/Harmony1.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
