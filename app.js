@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLogoImg = document.querySelector('#nav-logo .logo-img');
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
-      if (navLogoImg) navLogoImg.src = 'assets/photos/logo-dark.jpg';
+      if (navLogoImg) navLogoImg.src = 'assets/photos/logo-dark.png';
     } else {
       header.classList.remove('scrolled');
       if (navLogoImg) navLogoImg.src = 'assets/photos/Logo.png';
