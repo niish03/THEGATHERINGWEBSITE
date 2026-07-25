@@ -59,12 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
     spySections.push({ id: 'catering', el: cateringSec });
   }
 
-  // Handle sticky header scroll & edge cases for navigation highlights
   function updateScrollState() {
+    const navLogoImg = document.querySelector('#nav-logo .logo-img');
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
+      if (navLogoImg) navLogoImg.src = 'assets/photos/logo-dark.jpg';
     } else {
       header.classList.remove('scrolled');
+      if (navLogoImg) navLogoImg.src = 'assets/photos/Logo.png';
     }
 
     const scrollPosition = window.scrollY;
@@ -468,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================
-     INTERACTIVE VENUE SHOWCASE (MULTI-SELECT)
+     INTERACTIVE VENUE SHOWCASE
      ========================================== */
   const svgRooms = document.querySelectorAll('.fp-room');
   const svgPartitions = document.querySelectorAll('.fp-partition');
@@ -563,9 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const defaultPfIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
-  // Room order for adjacency checks
-  const roomOrder = ['a', 'b', 'c', 'd'];
-  const partitionMap = { 'a-b': 'partition-ab', 'b-c': 'partition-bc', 'c-d': 'partition-cd' };
+
 
   function updateVenueUI() {
     // 1. Update SVG highlights
@@ -574,17 +574,6 @@ document.addEventListener('DOMContentLoaded', () => {
       room.classList.toggle('selected', selectedRooms.has(rid));
     });
 
-    // 2. Update partitions — open between adjacent selected rooms
-    svgPartitions.forEach(part => part.classList.remove('open'));
-    for (let i = 0; i < roomOrder.length - 1; i++) {
-      const a = roomOrder[i], b = roomOrder[i + 1];
-      if (selectedRooms.has(a) && selectedRooms.has(b)) {
-        const partId = partitionMap[`${a}-${b}`];
-        const partEl = document.getElementById(partId);
-        if (partEl) partEl.classList.add('open');
-      }
-    }
-
     const selArray = Array.from(selectedRooms);
     if (selArray.length === 0) {
       selectedRooms.add('a');
@@ -592,66 +581,30 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 3. Populate single card with data (combined if multiple)
-    if (selArray.length === 1) {
-      const data = roomData[selArray[0]];
-      document.getElementById('detail-room-name').textContent = data.name;
-      document.getElementById('detail-room-tagline').textContent = data.tagline;
-      document.getElementById('detail-banquet').textContent = data.banquet;
-      document.getElementById('detail-theater').textContent = data.theater;
-      document.getElementById('detail-dimensions').textContent = data.dimensions;
-      document.getElementById('detail-description').textContent = data.description;
+    // 2. Populate detail card with single room data
+    const data = roomData[selArray[0]];
+    document.getElementById('detail-room-name').textContent = data.name;
+    document.getElementById('detail-room-tagline').textContent = data.tagline;
+    document.getElementById('detail-banquet').textContent = data.banquet;
+    document.getElementById('detail-theater').textContent = data.theater;
+    document.getElementById('detail-dimensions').textContent = data.dimensions;
+    document.getElementById('detail-description').textContent = data.description;
 
-      // Perfect for — icon-prefixed grid
-      const pfContainer = document.getElementById('detail-perfect-for');
-      pfContainer.innerHTML = data.perfectFor.map(tag => {
-        const icon = pfIcons[tag] || defaultPfIcon;
-        return `<div class="pf-item">${icon}<span>${tag}</span></div>`;
-      }).join('');
-    } else {
-      // Combined: aggregate values dynamically
-      const names = selArray.map(rid => roomData[rid].name.replace('The ', '').replace(' Room', ''));
-      const totalBanquet = selArray.reduce((sum, rid) => sum + roomData[rid].banquet, 0);
-      const totalTheater = selArray.reduce((sum, rid) => sum + roomData[rid].theater, 0);
-      const totalWidth = selArray.reduce((sum, rid) => sum + roomData[rid].widthFt, 0);
+    // Perfect for — icon-prefixed grid
+    const pfContainer = document.getElementById('detail-perfect-for');
+    pfContainer.innerHTML = data.perfectFor.map(tag => {
+      const icon = pfIcons[tag] || defaultPfIcon;
+      return `<div class="pf-item">${icon}<span>${tag}</span></div>`;
+    }).join('');
 
-      document.getElementById('detail-room-name').textContent = names.join(' + ');
-      document.getElementById('detail-room-tagline').textContent = `${selArray.length} rooms combined for your event`;
-      document.getElementById('detail-banquet').textContent = totalBanquet;
-      document.getElementById('detail-theater').textContent = totalTheater;
-      document.getElementById('detail-dimensions').textContent = `${totalWidth} × 60 ft`;
-
-      // Build combined description
-      const roomNamesList = selArray.map(rid => roomData[rid].name).join(', ');
-      document.getElementById('detail-description').textContent = `Combine ${roomNamesList} by retracting our acoustic sliding partition dividers to create a seamlessly connected event space of ${totalWidth} × 60 ft — ideal for large-scale events.`;
-
-      // Merge unique perfect-for tags from all selected rooms
-      const allTags = new Set();
-      selArray.forEach(rid => roomData[rid].perfectFor.forEach(t => allTags.add(t)));
-      allTags.add('Large Weddings');
-      allTags.add('Galas');
-      allTags.add('Exhibitions');
-
-      const pfContainer = document.getElementById('detail-perfect-for');
-      pfContainer.innerHTML = Array.from(allTags).map(tag => {
-        const icon = pfIcons[tag] || defaultPfIcon;
-        return `<div class="pf-item">${icon}<span>${tag}</span></div>`;
-      }).join('');
-    }
-
-    // 4. Update slider
+    // 3. Update slider
     initSlider(selArray);
   }
 
-  // Toggle room selection
-  function toggleRoom(roomId) {
-    if (selectedRooms.has(roomId)) {
-      if (selectedRooms.size > 1) {
-        selectedRooms.delete(roomId);
-      }
-    } else {
-      selectedRooms.add(roomId);
-    }
+  // Select a single room (clears any previous selection)
+  function selectRoom(roomId) {
+    selectedRooms.clear();
+    selectedRooms.add(roomId);
     updateVenueUI();
   }
 
@@ -659,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
   svgRooms.forEach(room => {
     room.addEventListener('click', () => {
       const roomId = room.id.replace('fp-', '');
-      toggleRoom(roomId);
+      selectRoom(roomId);
     });
   });
 
@@ -748,24 +701,360 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
      IMAGE GALLERY LIGHTBOX (NEW)
      ========================================== */
-  const galleryItems = document.querySelectorAll('.gallery-item');
   const lightboxModal = document.getElementById('lightbox-modal');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCaption = document.getElementById('lightbox-caption');
   const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
 
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const imgSrc = item.dataset.image;
-      const imgCaption = item.dataset.caption;
+  /* ==========================================
+     EXPLORE THE GATHERING SHOWCASE SLIDER
+     ========================================== */
+  const exploreImages = [
+    // 1. Exterior & Entrances
+    {
+      src: 'assets/photos/Outside2.png',
+      title: 'The Gathering Exterior',
+      sub: 'Modern Architecture',
+      desc: 'Our modern white-brick venue features multiple private entrances, gorgeous exterior illumination, and ample complimentary guest parking.',
+      category: 'exterior'
+    },
+    {
+      src: 'assets/photos/Entrance1.png',
+      title: 'Dedicated Entrance 1',
+      sub: 'Direct Venue Access',
+      desc: 'Provide your guests with an exclusive experience using private, direct entries leading straight into specific event areas.',
+      category: 'exterior'
+    },
+    {
+      src: 'assets/photos/Entrance2.png',
+      title: 'Dedicated Entrance 2',
+      sub: 'Magnolia Foyer Access',
+      desc: 'Separate entryway designed to allow smooth, independent traffic flows for multiple simultaneous gatherings.',
+      category: 'exterior'
+    },
+    {
+      src: 'assets/photos/Entrance3.png',
+      title: 'Dedicated Entrance 3',
+      sub: 'Blues Foyer Access',
+      desc: 'Guests arrive in style through customized greeting entryways tailored for private celebrations.',
+      category: 'exterior'
+    },
+    {
+      src: 'assets/photos/Entrance4.png',
+      title: 'Dedicated Entrance 4',
+      sub: 'Harmony Foyer Access',
+      desc: 'Elegant, private entry points that ensure an organized, upscale arrivals experience for VIPs.',
+      category: 'exterior'
+    },
+    // 2. Lobby & Lounges
+    {
+      src: 'assets/photos/Lobby2.png',
+      title: 'Grand Lobby Foyer',
+      sub: 'First Impressions',
+      desc: 'Stunning polished marble floors, designer ring chandeliers, and custom warm woodwork make a luxurious statement upon arrival.',
+      category: 'lobby'
+    },
+    {
+      src: 'assets/photos/Lobby1.png',
+      title: 'Lobby Cozy Lounge',
+      sub: 'Pre-Function Comfort',
+      desc: 'Plush, comfortable leather seating areas encourage mingling, registration, and cocktail hour relaxation.',
+      category: 'lobby'
+    },
+    {
+      src: 'assets/photos/Lobby3.png',
+      title: 'Lobby Reception Desk',
+      sub: 'Welcoming Space',
+      desc: 'Well-appointed lounge spaces ideal for guest registration, directional signage, and reception setups.',
+      category: 'lobby'
+    },
+    // 3. Event Rooms
+    {
+      src: 'assets/photos/Harmony1.png',
+      title: 'The Harmony Room',
+      sub: 'Grand Banquet Layout',
+      desc: 'Our largest single ballroom setup, featuring modern ring lighting, round-table seating, and acoustic sliding wall options.',
+      category: 'rooms'
+    },
+    {
+      src: 'assets/photos/Magnolia1.png',
+      title: 'The Magnolia Room',
+      sub: 'Conference & Banquets',
+      desc: 'Configured beautifully with banquet tables, demonstrating the room\'s versatility, clean lines, and integrated AV capability.',
+      category: 'rooms'
+    },
+    {
+      src: 'assets/photos/Magnolia2.png',
+      title: 'The Magnolia Open Space',
+      sub: 'Large Scale Gatherings',
+      desc: 'A spacious and bright configuration ideal for exhibitions, wedding receptions, and high-attendance conferences.',
+      category: 'rooms'
+    },
+    {
+      src: 'assets/photos/Blues1.png',
+      title: 'The Blues Room',
+      sub: 'Comfortable Celebrations',
+      desc: 'A charming banquet setup complete with chandeliers, perfect for birthday parties, private banquets, and seminars.',
+      category: 'rooms'
+    },
+    {
+      src: 'assets/photos/Honeysuckle1.png',
+      title: 'The Honeysuckle Room',
+      sub: 'Intimate Event Setting',
+      desc: 'Beautifully configured for bridal showers or meetings, showing the warmth, comfort, and premium finishes of the space.',
+      category: 'rooms'
+    },
+    // 4. Bar & Catering
+    {
+      src: 'assets/photos/Bar.png',
+      title: 'Full-Service Built-in Bar',
+      sub: 'Cocktails & Beverages',
+      desc: 'A gorgeous in-house bar featuring custom marble counters and professional bartending options to elevate your toast.',
+      category: 'catering'
+    },
+    {
+      src: 'assets/photos/FoodCollage.png',
+      title: 'Chef-Crafted Catering',
+      sub: 'Culinary Masterpieces',
+      desc: 'Our professional culinary team designs bespoke, mouth-watering platters and buffet selections for every taste profile.',
+      category: 'catering'
+    },
+    {
+      src: 'assets/photos/Food1.jpeg',
+      title: 'Artisanal Hors d\'oeuvres',
+      sub: 'Gourmet Starters',
+      desc: 'Elegant, delicious starters created to set the tone for an exceptional dining experience.',
+      category: 'catering'
+    },
+    {
+      src: 'assets/photos/Food2.jpeg',
+      title: 'Exquisite Main Platters',
+      sub: 'Five-Star Dining',
+      desc: 'Perfectly seasoned and styled dishes cooked to perfection for a premium sit-down experience.',
+      category: 'catering'
+    },
+    {
+      src: 'assets/photos/Food3.jpeg',
+      title: 'Savory Buffet Selections',
+      sub: 'Custom Curated Menus',
+      desc: 'Versatile menu plans with options to accommodate dietary needs and themed party catering.',
+      category: 'catering'
+    },
+    {
+      src: 'assets/photos/Food4.jpeg',
+      title: 'Chef\'s Plated Specialties',
+      sub: 'Gastronomy Excellence',
+      desc: 'Each plate is individually styled and curated for maximum visual appeal and flavor complexity.',
+      category: 'catering'
+    },
+    {
+      src: 'assets/photos/Food5.jpeg',
+      title: 'Decadent Fine Desserts',
+      sub: 'Sweet Endings',
+      desc: 'Delectable dessert styling that looks as incredible as it tastes, leaving a memorable impression on your guests.',
+      category: 'catering'
+    }
+  ];
 
-      lightboxImg.src = imgSrc;
-      lightboxCaption.textContent = imgCaption;
-      lightboxModal.style.display = 'flex';
+  // Slider State
+  let filteredImages = [...exploreImages];
+  let activeIndex = 0;
+  let isAutoplayPaused = false;
+  const AUTOPLAY_INTERVAL = 6000; // 6 seconds
+  let progressStartTimestamp = null;
+  let progressAnimationFrame = null;
+
+  // DOM Elements
+  const exploreImg = document.getElementById('explore-active-img');
+  const exploreTitle = document.getElementById('explore-active-title');
+  const exploreSub = document.getElementById('explore-active-sub');
+  const exploreDesc = document.getElementById('explore-active-desc');
+  const exploreCounter = document.getElementById('explore-counter');
+  const explorePrevBtn = document.getElementById('explore-prev-btn');
+  const exploreNextBtn = document.getElementById('explore-next-btn');
+  const exploreZoomBtn = document.getElementById('explore-zoom-btn');
+  const explorePlayBtn = document.getElementById('explore-play-btn');
+  const exploreProgressBar = document.getElementById('explore-progress-bar');
+  const exploreTabBtns = document.querySelectorAll('.explore-tab-btn');
+  const slideContainer = document.getElementById('explore-slide-container');
+
+  function initExploreSlider() {
+    if (!exploreImg) return;
+    
+    renderExploreSlide();
+    startAutoplayProgress();
+
+    // Navigation Click listeners
+    if (explorePrevBtn) {
+      explorePrevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateExploreSlider(-1);
+      });
+    }
+    if (exploreNextBtn) {
+      exploreNextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateExploreSlider(1);
+      });
+    }
+    
+    // Zoom / Fullscreen Modal triggers
+    if (slideContainer) {
+      slideContainer.addEventListener('click', () => {
+        openExploreLightbox();
+      });
+    }
+    if (exploreZoomBtn) {
+      exploreZoomBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openExploreLightbox();
+      });
+    }
+    
+    // Autoplay controls
+    if (explorePlayBtn) {
+      explorePlayBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleExploreAutoplay();
+      });
+    }
+
+    // Filter Buttons
+    exploreTabBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        exploreTabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        filterExploreImages(filter);
+      });
     });
-  });
 
-  // Link click on active slide image to open Lightbox Modal
+    // Touch Swipe navigation (Mobile friendly)
+    let startX = 0;
+    let endX = 0;
+    if (slideContainer) {
+      slideContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+
+      slideContainer.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        if (Math.abs(diffX) > 50) { // threshold
+          if (diffX > 0) {
+            navigateExploreSlider(1); // Swipe left -> Next
+          } else {
+            navigateExploreSlider(-1); // Swipe right -> Prev
+          }
+        }
+      }, { passive: true });
+    }
+  }
+
+  function renderExploreSlide() {
+    if (!filteredImages.length || !exploreImg) return;
+    const current = filteredImages[activeIndex];
+    
+    exploreImg.style.opacity = '0';
+    setTimeout(() => {
+      exploreImg.src = current.src;
+      exploreImg.alt = `${current.title} - ${current.sub}`;
+      if (exploreTitle) exploreTitle.textContent = current.title;
+      if (exploreSub) exploreSub.textContent = current.sub;
+      if (exploreDesc) exploreDesc.textContent = current.desc;
+      if (exploreCounter) exploreCounter.textContent = `${activeIndex + 1} / ${filteredImages.length}`;
+      exploreImg.style.opacity = '1';
+      
+      // Zoom animation
+      exploreImg.classList.remove('zoomed');
+      void exploreImg.offsetWidth; // Reflow
+      exploreImg.classList.add('zoomed');
+    }, 150);
+
+    resetAutoplayProgress();
+  }
+
+  function navigateExploreSlider(dir) {
+    if (!filteredImages.length) return;
+    activeIndex = (activeIndex + dir + filteredImages.length) % filteredImages.length;
+    renderExploreSlide();
+  }
+
+  function filterExploreImages(category) {
+    if (category === 'all') {
+      filteredImages = [...exploreImages];
+    } else {
+      filteredImages = exploreImages.filter(img => img.category === category);
+    }
+    activeIndex = 0;
+    renderExploreSlide();
+  }
+
+  function toggleExploreAutoplay() {
+    isAutoplayPaused = !isAutoplayPaused;
+    
+    const playIcon = explorePlayBtn.querySelector('.play-icon');
+    const pauseIcon = explorePlayBtn.querySelector('.pause-icon');
+    const playText = explorePlayBtn.querySelector('.play-text');
+    
+    if (isAutoplayPaused) {
+      if (playIcon) playIcon.style.display = 'inline-block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (playText) playText.textContent = 'Play Autoplay';
+      cancelAnimationFrame(progressAnimationFrame);
+      if (exploreProgressBar) exploreProgressBar.style.width = '0%';
+    } else {
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'inline-block';
+      if (playText) playText.textContent = 'Pause Autoplay';
+      startAutoplayProgress();
+    }
+  }
+
+  function startAutoplayProgress() {
+    if (isAutoplayPaused || !exploreProgressBar) return;
+    
+    cancelAnimationFrame(progressAnimationFrame);
+    progressStartTimestamp = performance.now();
+    
+    function animate(timestamp) {
+      if (isAutoplayPaused) return;
+      
+      const elapsed = timestamp - progressStartTimestamp;
+      const progress = Math.min((elapsed / AUTOPLAY_INTERVAL) * 100, 100);
+      
+      if (exploreProgressBar) exploreProgressBar.style.width = `${progress}%`;
+      
+      if (elapsed >= AUTOPLAY_INTERVAL) {
+        navigateExploreSlider(1);
+        progressStartTimestamp = performance.now();
+      }
+      
+      progressAnimationFrame = requestAnimationFrame(animate);
+    }
+    
+    progressAnimationFrame = requestAnimationFrame(animate);
+  }
+
+  function resetAutoplayProgress() {
+    if (isAutoplayPaused) return;
+    progressStartTimestamp = performance.now();
+    if (exploreProgressBar) exploreProgressBar.style.width = '0%';
+  }
+
+  function openExploreLightbox() {
+    if (!filteredImages.length || !lightboxModal) return;
+    const current = filteredImages[activeIndex];
+    lightboxImg.src = current.src;
+    lightboxCaption.textContent = `${current.title} — ${current.desc}`;
+    lightboxModal.style.display = 'flex';
+  }
+
+  // Initialize Showcase Slider
+  initExploreSlider();
+
+
+  // Link click on active slide image to open Lightbox Modal (For Floorplan Rooms Slider)
   if (sliderImg) {
     sliderImg.addEventListener('click', () => {
       if (!currentSliderImages.length || !lightboxModal) return;
