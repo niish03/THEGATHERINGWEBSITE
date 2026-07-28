@@ -1,0 +1,13 @@
+# Robots.txt for The Gathering Conference Center
+# Optimized for Googlebot and Bingbot indexation
+
+User-agent: *
+Allow: /
+
+# Prevent indexation of legal utility subpages (already marked noindex, but helps budget crawl)
+Disallow: /privacy-policy.html
+Disallow: /terms-of-use.html
+Disallow: /accessibility.html
+
+# Reference our XML sitemap location
+Sitemap: https://thegathering365.com/sitemap.xml
