@@ -1501,4 +1501,354 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // ==========================================
+  // MENU LIGHTBOX MODAL WITH INTERACTIVE ZOOM (NEW)
+  // ==========================================
+  const menuBtns = document.querySelectorAll('.catering-menu-btn');
+  const menuModal = document.getElementById('menu-modal');
+  const menuModalTitle = document.getElementById('menu-modal-title');
+  const menuModalImg = document.getElementById('menu-modal-img');
+  const menuModalCloseBtn = document.getElementById('menu-modal-close-btn');
+  const menuModalOverlay = document.getElementById('menu-modal-overlay');
+  const menuModalCtaBtn = document.getElementById('menu-modal-cta-btn');
+  const menuModalZoomContainer = document.getElementById('menu-modal-zoom-container');
+  const menuModalViewport = document.getElementById('menu-modal-viewport');
+  
+  const zoomInBtn = document.getElementById('menu-zoom-in-btn');
+  const zoomOutBtn = document.getElementById('menu-zoom-out-btn');
+  const zoomResetBtn = document.getElementById('menu-zoom-reset-btn');
+  const zoomIndicator = document.getElementById('menu-zoom-indicator');
+  const panningTip = document.getElementById('menu-panning-tip');
+  
+  let menuScale = 1;
+  let menuTranslateX = 0;
+  let menuTranslateY = 0;
+  let isMenuDragging = false;
+  let menuStartX = 0;
+  let menuStartY = 0;
+  let menuLastTranslateX = 0;
+  let menuLastTranslateY = 0;
+  let menuLastActiveElement = null;
+  
+  const MENU_MIN_ZOOM = 1;
+  const MENU_MAX_ZOOM = 4;
+  const MENU_ZOOM_STEP = 0.5;
+
+  // Open Menu Modal
+  function openMenuModal(imgUrl, menuName) {
+    menuLastActiveElement = document.activeElement;
+    if (menuModalImg) menuModalImg.src = imgUrl;
+    if (menuModalTitle) menuModalTitle.textContent = `${menuName} Menu`;
+    
+    // Reset zoom and translations
+    resetMenuZoom();
+    
+    if (menuModal) {
+      menuModal.style.display = 'flex';
+      setTimeout(() => {
+        menuModal.classList.add('active');
+        if (menuModalCloseBtn) menuModalCloseBtn.focus();
+      }, 10);
+    }
+    
+    // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
+    
+    // Accessibility focus trap setup
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) mainContent.setAttribute('aria-hidden', 'true');
+    const header = document.querySelector('.header');
+    if (header) header.setAttribute('aria-hidden', 'true');
+  }
+
+  // Close Menu Modal
+  function closeMenuModal() {
+    if (menuModal) {
+      menuModal.classList.remove('active');
+      setTimeout(() => {
+        menuModal.style.display = 'none';
+        if (menuModalImg) menuModalImg.src = '';
+        if (menuLastActiveElement) menuLastActiveElement.focus();
+      }, 300);
+    }
+    
+    document.body.style.overflow = '';
+    
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) mainContent.removeAttribute('aria-hidden');
+    const header = document.querySelector('.header');
+    if (header) header.removeAttribute('aria-hidden');
+  }
+
+  // Apply Transform
+  function applyMenuTransform(withTransition = true) {
+    if (!menuModalZoomContainer) return;
+    
+    if (withTransition) {
+      menuModalZoomContainer.style.transition = 'transform 0.25s cubic-bezier(0.1, 0.8, 0.3, 1)';
+    } else {
+      menuModalZoomContainer.style.transition = 'none';
+    }
+    menuModalZoomContainer.style.transform = `translate(${menuTranslateX}px, ${menuTranslateY}px) scale(${menuScale})`;
+    if (zoomIndicator) zoomIndicator.textContent = `${Math.round(menuScale * 100)}%`;
+    
+    // Toggle pan instructions depending on zoom level
+    if (panningTip) {
+      if (menuScale > 1) {
+        panningTip.style.opacity = '1';
+      } else {
+        panningTip.style.opacity = '0.4';
+      }
+    }
+  }
+
+  // Reset Zoom
+  function resetMenuZoom() {
+    menuScale = 1;
+    menuTranslateX = 0;
+    menuTranslateY = 0;
+    menuLastTranslateX = 0;
+    menuLastTranslateY = 0;
+    applyMenuTransform(true);
+  }
+
+  // Zoom Operations
+  function zoomMenuIn() {
+    if (menuScale < MENU_MAX_ZOOM) {
+      menuScale += MENU_ZOOM_STEP;
+      applyMenuTransform(true);
+    }
+  }
+
+  function zoomMenuOut() {
+    if (menuScale > MENU_MIN_ZOOM) {
+      menuScale -= MENU_ZOOM_STEP;
+      if (menuScale <= MENU_MIN_ZOOM) {
+        menuScale = MENU_MIN_ZOOM;
+        menuTranslateX = 0;
+        menuTranslateY = 0;
+        menuLastTranslateX = 0;
+        menuLastTranslateY = 0;
+      } else {
+        const limits = getMenuPanningLimits();
+        menuTranslateX = Math.max(-limits.limitX, Math.min(limits.limitX, menuTranslateX));
+        menuTranslateY = Math.max(-limits.limitY, Math.min(limits.limitY, menuTranslateY));
+        menuLastTranslateX = menuTranslateX;
+        menuLastTranslateY = menuTranslateY;
+      }
+      applyMenuTransform(true);
+    }
+  }
+
+  // Get Panning boundaries based on scale and container sizes
+  function getMenuPanningLimits() {
+    if (!menuModalViewport || !menuModalImg) return { limitX: 0, limitY: 0 };
+    
+    const viewportRect = menuModalViewport.getBoundingClientRect();
+    const imgWidth = menuModalImg.clientWidth;
+    const imgHeight = menuModalImg.clientHeight;
+    
+    const zoomedWidth = imgWidth * menuScale;
+    const zoomedHeight = imgHeight * menuScale;
+    
+    const limitX = zoomedWidth > viewportRect.width ? (zoomedWidth - viewportRect.width) / 2 : 0;
+    const limitY = zoomedHeight > viewportRect.height ? (zoomedHeight - viewportRect.height) / 2 : 0;
+    
+    return { limitX, limitY };
+  }
+
+  // Dragging and Panning Handlers
+  function handleMenuDragStart(e) {
+    if (menuScale <= 1) return; // Don't pan if zoomed out
+    isMenuDragging = true;
+    if (menuModalZoomContainer) menuModalZoomContainer.classList.add('dragging');
+    
+    const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+    
+    menuStartX = clientX;
+    menuStartY = clientY;
+  }
+
+  function handleMenuDragMove(e) {
+    if (!isMenuDragging) return;
+    
+    // Prevent touch-scrolling the viewport when panning
+    if (e.cancelable) e.preventDefault();
+    
+    const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+    
+    const dx = clientX - menuStartX;
+    const dy = clientY - menuStartY;
+    
+    menuTranslateX = menuLastTranslateX + dx;
+    menuTranslateY = menuLastTranslateY + dy;
+    
+    // Constrain to limits
+    const limits = getMenuPanningLimits();
+    menuTranslateX = Math.max(-limits.limitX, Math.min(limits.limitX, menuTranslateX));
+    menuTranslateY = Math.max(-limits.limitY, Math.min(limits.limitY, menuTranslateY));
+    
+    applyMenuTransform(false); // Disable transition for raw updates
+  }
+
+  function handleMenuDragEnd() {
+    if (!isMenuDragging) return;
+    isMenuDragging = false;
+    if (menuModalZoomContainer) menuModalZoomContainer.classList.remove('dragging');
+    menuLastTranslateX = menuTranslateX;
+    menuLastTranslateY = menuTranslateY;
+  }
+
+  // Handle Menu Button Click
+  if (menuBtns.length > 0) {
+    menuBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const imgUrl = btn.getAttribute('href');
+        const menuName = btn.textContent.trim();
+        openMenuModal(imgUrl, menuName);
+      });
+    });
+  }
+
+  // Bind Close Events
+  if (menuModalCloseBtn) menuModalCloseBtn.addEventListener('click', closeMenuModal);
+  if (menuModalOverlay) menuModalOverlay.addEventListener('click', closeMenuModal);
+  
+  // Bind Zoom Clicks
+  if (zoomInBtn) zoomInBtn.addEventListener('click', zoomMenuIn);
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', zoomMenuOut);
+  if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetMenuZoom);
+  
+  // Bind Mouse Drag and Touch events on zoom container
+  if (menuModalZoomContainer) {
+    menuModalZoomContainer.addEventListener('mousedown', handleMenuDragStart);
+    menuModalZoomContainer.addEventListener('touchstart', handleMenuDragStart, { passive: true });
+    
+    window.addEventListener('mousemove', handleMenuDragMove);
+    window.addEventListener('touchmove', handleMenuDragMove, { passive: false });
+    
+    window.addEventListener('mouseup', handleMenuDragEnd);
+    window.addEventListener('touchend', handleMenuDragEnd);
+  }
+
+  // Double click image to toggle zoom
+  if (menuModalViewport) {
+    menuModalViewport.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      if (menuScale > 1) {
+        resetMenuZoom();
+      } else {
+        menuScale = 2.5;
+        applyMenuTransform(true);
+      }
+    });
+
+    // Mouse wheel zoom inside viewport
+    menuModalViewport.addEventListener('wheel', (e) => {
+      if (menuModal && menuModal.style.display !== 'none') {
+        e.preventDefault();
+        const zoomFactor = 0.15;
+        if (e.deltaY < 0) {
+          if (menuScale < MENU_MAX_ZOOM) {
+            menuScale = Math.min(MENU_MAX_ZOOM, menuScale + zoomFactor);
+            applyMenuTransform(true);
+          }
+        } else {
+          if (menuScale > MENU_MIN_ZOOM) {
+            menuScale = Math.max(MENU_MIN_ZOOM, menuScale - zoomFactor);
+            if (menuScale <= MENU_MIN_ZOOM) {
+              menuScale = MENU_MIN_ZOOM;
+              menuTranslateX = 0;
+              menuTranslateY = 0;
+              menuLastTranslateX = 0;
+              menuLastTranslateY = 0;
+            } else {
+              const limits = getMenuPanningLimits();
+              menuTranslateX = Math.max(-limits.limitX, Math.min(limits.limitX, menuTranslateX));
+              menuTranslateY = Math.max(-limits.limitY, Math.min(limits.limitY, menuTranslateY));
+              menuLastTranslateX = menuTranslateX;
+              menuLastTranslateY = menuTranslateY;
+            }
+            applyMenuTransform(true);
+          }
+        }
+      }
+    }, { passive: false });
+  }
+
+  // Keyboard accessibility
+  window.addEventListener('keydown', (e) => {
+    if (!menuModal || menuModal.style.display === 'none') return;
+    
+    if (e.key === 'Escape') {
+      closeMenuModal();
+    }
+    
+    // Trap Focus inside modal controls
+    if (e.key === 'Tab') {
+      const focusables = menuModal.querySelectorAll('button, [tabindex="0"]');
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          last.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === last) {
+          first.focus();
+          e.preventDefault();
+        }
+      }
+    }
+  });
+
+  // CTA Button action: Close modal, redirect to form wizard
+  if (menuModalCtaBtn && bookingWidget) {
+    menuModalCtaBtn.addEventListener('click', () => {
+      closeMenuModal();
+      
+      // Delay scrolling slightly so close transition completes cleanly
+      setTimeout(() => {
+        const isMobile = window.innerWidth <= 992;
+        const heroSection = document.getElementById('hero');
+        const targetElement = (isMobile && bookingWidget) ? bookingWidget : (heroSection || bookingWidget);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          
+          // Trigger highlight/glow effect after scroll
+          let scrollTimeout;
+          const scrollHandler = () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+              window.removeEventListener('scroll', scrollHandler);
+              bookingWidget.classList.add('highlight-widget');
+              setTimeout(() => {
+                bookingWidget.classList.remove('highlight-widget');
+              }, 2000);
+            }, 100);
+          };
+          
+          window.addEventListener('scroll', scrollHandler);
+          
+          // Fallback if already there
+          const expectedOffset = (targetElement === bookingWidget) ? 100 : 0;
+          if (Math.abs(targetElement.getBoundingClientRect().top - expectedOffset) < 50) {
+            window.removeEventListener('scroll', scrollHandler);
+            bookingWidget.classList.add('highlight-widget');
+            setTimeout(() => {
+              bookingWidget.classList.remove('highlight-widget');
+            }, 2000);
+          }
+        }
+      }, 350);
+    });
+  }
 });

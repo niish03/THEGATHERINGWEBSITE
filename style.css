@@ -1677,6 +1677,315 @@ h3.explore-details-title {
 }
 
 /* ==========================================
+   MENU MODAL WITH INTERACTIVE ZOOM CSS (NEW)
+   ========================================== */
+.menu-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1;
+}
+
+.menu-modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; /* Increased to allow wider viewing on desktop */
+  height: 92vh; /* Set constant high height to maximize view size */
+  max-height: 92vh;
+  background: var(--primary-light);
+  border: 1px solid rgba(197, 168, 128, 0.25);
+  border-radius: var(--radius-md);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(197, 168, 128, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.menu-modal.active .menu-modal-container {
+  transform: scale(1) translateY(0);
+}
+
+/* Header */
+.menu-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: var(--primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-modal-title {
+  color: var(--accent);
+  font-family: var(--font-headings);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.menu-modal-close {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.menu-modal-close:hover,
+.menu-modal-close:focus {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--white);
+  transform: rotate(90deg);
+}
+
+/* Viewport Area */
+.menu-modal-viewport {
+  position: relative;
+  flex: 1; /* Stretch vertically to utilize maximum container height */
+  width: 100%;
+  background: rgba(15, 23, 42, 0.4);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.menu-modal-zoom-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transform-origin: center center;
+}
+
+.menu-modal-zoom-container.dragging {
+  cursor: grabbing;
+}
+
+.menu-modal-img {
+  max-width: 98%;
+  max-height: 98%;
+  object-fit: contain;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-sm);
+  background: #111;
+  pointer-events: none; /* Let container capture pointer events */
+}
+
+/* Floating Controls */
+.menu-zoom-controls-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+  z-index: 10;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.menu-zoom-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.menu-zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+}
+
+.menu-zoom-btn:active {
+  transform: scale(0.9);
+}
+
+.menu-zoom-indicator {
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  min-width: 44px;
+  text-align: center;
+}
+
+.menu-control-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 4px;
+}
+
+/* Top instruction tip */
+.menu-panning-tip {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+  z-index: 9;
+}
+
+/* Footer Section */
+.menu-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  background: var(--primary);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-modal-footer-prompt {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-weight: 300;
+}
+
+.menu-modal-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--primary);
+  border: 1px solid var(--accent);
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.menu-modal-cta-btn:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  color: var(--white);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .menu-modal {
+    padding: 8px;
+  }
+  
+  .menu-modal-container {
+    height: 94vh; /* Maximize screen size on mobile devices */
+    max-height: 94vh;
+  }
+  
+  .menu-modal-header {
+    padding: 14px 18px;
+  }
+  
+  .menu-modal-title {
+    font-size: 1.25rem;
+  }
+  
+  .menu-modal-viewport {
+    flex: 1; /* Retain stretch layout on mobile */
+    height: auto;
+    min-height: auto;
+  }
+  
+  .menu-modal-footer {
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px 18px;
+    text-align: center;
+  }
+  
+  .menu-modal-footer-prompt {
+    font-size: 0.85rem;
+  }
+  
+  .menu-modal-cta-btn {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  
+  .menu-zoom-controls-panel {
+    bottom: 12px;
+    padding: 4px 10px;
+  }
+  
+  .menu-zoom-btn {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* ==========================================
    CATERING HIGHLIGHT BANNER
    ========================================== */
 .catering-showcase {
