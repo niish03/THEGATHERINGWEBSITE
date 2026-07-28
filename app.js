@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navLogoImg) navLogoImg.src = 'assets/photos/logo-dark.png';
     } else {
       header.classList.remove('scrolled');
-      if (navLogoImg) navLogoImg.src = 'assets/photos/Logo.png';
+      if (navLogoImg) navLogoImg.src = 'assets/photos/logo.png';
     }
 
     const scrollPosition = window.scrollY;
