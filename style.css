@@ -1895,6 +1895,95 @@ h3.explore-details-title {
   z-index: 9;
 }
 
+/* Navigation Arrow Buttons */
+.menu-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, opacity 0.2s;
+  opacity: 0.85;
+}
+
+.menu-nav-btn:hover {
+  background: rgba(197, 168, 128, 0.25);
+  border-color: var(--accent);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.menu-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+.menu-nav-prev {
+  left: 12px;
+}
+
+.menu-nav-next {
+  right: 12px;
+}
+
+/* Progress Dot Indicator */
+.menu-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 28px;
+  background: rgba(15, 23, 42, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.menu-progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s, border-color 0.25s;
+  flex-shrink: 0;
+}
+
+.menu-progress-dot:hover {
+  background: rgba(197, 168, 128, 0.5);
+  border-color: var(--accent);
+  transform: scale(1.2);
+}
+
+.menu-progress-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.25);
+  box-shadow: 0 0 8px rgba(197, 168, 128, 0.5);
+}
+
+.menu-progress-line {
+  height: 1.5px;
+  width: 28px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+
+.menu-progress-line.passed {
+  background: rgba(197, 168, 128, 0.5);
+}
+
 /* Footer Section */
 .menu-modal-footer {
   display: flex;

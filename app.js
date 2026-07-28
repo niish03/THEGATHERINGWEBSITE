@@ -1436,75 +1436,108 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(type, 1000);
   }
 
+  const bookingWidget = document.getElementById('booking-widget');
+
+  // Shared Helper: Smoothly scroll to booking widget/form, glow, & focus
+  function scrollToBookingWidget(shouldFocus = false) {
+    if (!bookingWidget) return;
+    const isMobile = window.innerWidth <= 992;
+    const heroSection = document.getElementById('hero');
+    const targetElement = (isMobile && bookingWidget) ? bookingWidget : (heroSection || bookingWidget);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+
+      let scrollTimeout;
+      const scrollHandler = () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          window.removeEventListener('scroll', scrollHandler);
+          bookingWidget.classList.add('highlight-widget');
+
+          if (shouldFocus) {
+            const dateInput = document.getElementById('widget-date');
+            if (dateInput) dateInput.focus({ preventScroll: true });
+          }
+
+          setTimeout(() => {
+            bookingWidget.classList.remove('highlight-widget');
+          }, 2000);
+        }, 100);
+      };
+
+      window.addEventListener('scroll', scrollHandler);
+
+      const expectedOffset = (targetElement === bookingWidget) ? 100 : 0;
+      if (Math.abs(targetElement.getBoundingClientRect().top - expectedOffset) < 50) {
+        window.removeEventListener('scroll', scrollHandler);
+        bookingWidget.classList.add('highlight-widget');
+        if (shouldFocus) {
+          const dateInput = document.getElementById('widget-date');
+          if (dateInput) dateInput.focus({ preventScroll: true });
+        }
+        setTimeout(() => {
+          bookingWidget.classList.remove('highlight-widget');
+        }, 2000);
+      }
+    }
+  }
+
   // Handle Wizard Redirection CTAs
   const wizardRedirectBtns = document.querySelectorAll('.wizard-redirect-btn');
-  const bookingWidget = document.getElementById('booking-widget');
 
   if (wizardRedirectBtns.length > 0 && bookingWidget) {
     wizardRedirectBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        // Only prevent default if it's an anchor link we want to handle smoothly
-        if (btn.tagName.toLowerCase() === 'a' && btn.getAttribute('href') === '#hero') {
+        const href = btn.getAttribute('href');
+        if (btn.tagName.toLowerCase() === 'a' && (href === '#hero' || href === '#booking-widget' || href === '#inquire' || href === '#book')) {
           e.preventDefault();
           
-          // Close mobile menu if it's open
-          if (navLinks.classList.contains('active')) {
+          if (typeof navLinks !== 'undefined' && navLinks.classList.contains('active')) {
             navLinks.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            if (typeof mobileMenuToggle !== 'undefined') mobileMenuToggle.classList.remove('active');
             document.body.style.overflow = '';
           }
-          
-          // On desktop, scroll to hero top. On mobile, scroll directly to the widget.
-          const isMobile = window.innerWidth <= 992; // Using 992px as typical tablet/mobile breakpoint
-          const heroSection = document.getElementById('hero');
-          const targetElement = (isMobile && bookingWidget) ? bookingWidget : (heroSection || bookingWidget);
 
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-
-            // Detect when scrolling has finished
-            let scrollTimeout;
-            const scrollHandler = () => {
-              clearTimeout(scrollTimeout);
-              scrollTimeout = setTimeout(() => {
-                window.removeEventListener('scroll', scrollHandler);
-                
-                // Highlight the booking widget after scroll is complete
-                if (bookingWidget) {
-                  bookingWidget.classList.add('highlight-widget');
-                  
-                  // Remove highlight after animation
-                  setTimeout(() => {
-                    bookingWidget.classList.remove('highlight-widget');
-                  }, 2000);
-                }
-              }, 100); // 100ms without scroll event means scroll finished
-            };
-            
-            window.addEventListener('scroll', scrollHandler);
-
-            // Fallback: If already at the target (no scrolling needed)
-            // widget container has 100px scroll margin, hero has 0
-            const expectedOffset = (targetElement === bookingWidget) ? 100 : 0;
-            if (Math.abs(targetElement.getBoundingClientRect().top - expectedOffset) < 50) {
-              window.removeEventListener('scroll', scrollHandler);
-              if (bookingWidget) {
-                bookingWidget.classList.add('highlight-widget');
-                setTimeout(() => {
-                  bookingWidget.classList.remove('highlight-widget');
-                }, 2000);
-              }
-            }
-          }
+          scrollToBookingWidget(false);
         }
       });
     });
   }
 
+  // Deep Link Landing Handler: Auto-scroll to form when visiting URLs with #inquire, #book, #booking-widget, etc.
+  function checkUrlForFormLanding() {
+    const hash = window.location.hash.toLowerCase();
+    const search = window.location.search.toLowerCase();
+    
+    const formHashes = ['#inquire', '#book', '#booking-widget', '#contact', '#plan', '#form'];
+    const hasFormQuery = search.includes('inquire') || search.includes('book') || search.includes('form');
+
+    if (formHashes.includes(hash) || hasFormQuery) {
+      setTimeout(() => {
+        scrollToBookingWidget(true);
+      }, 400);
+    }
+  }
+
+  checkUrlForFormLanding();
+  window.addEventListener('hashchange', checkUrlForFormLanding);
+
   // ==========================================
   // MENU LIGHTBOX MODAL WITH INTERACTIVE ZOOM (NEW)
   // ==========================================
+
+  // Full ordered menu list matching the buttons in the DOM
+  const MENU_LIST = [
+    { name: 'Breakfast', url: 'assets/photos/menu-Breakfast.png' },
+    { name: 'Lunch',     url: 'assets/photos/menu-Lunch.png' },
+    { name: 'Dinner',   url: 'assets/photos/menu-Dinner.png' },
+    { name: 'Specialty Menus', url: 'assets/photos/menu-Full Specialty.png' },
+    { name: 'Bar & Add-Ons',  url: 'assets/photos/menu-Bar and add-on.png' },
+  ];
+
+  let currentMenuIndex = 0;
+
   const menuBtns = document.querySelectorAll('.catering-menu-btn');
   const menuModal = document.getElementById('menu-modal');
   const menuModalTitle = document.getElementById('menu-modal-title');
@@ -1514,6 +1547,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuModalCtaBtn = document.getElementById('menu-modal-cta-btn');
   const menuModalZoomContainer = document.getElementById('menu-modal-zoom-container');
   const menuModalViewport = document.getElementById('menu-modal-viewport');
+  const menuNavPrev = document.getElementById('menu-nav-prev');
+  const menuNavNext = document.getElementById('menu-nav-next');
+  const menuProgressBar = document.getElementById('menu-progress-bar');
   
   const zoomInBtn = document.getElementById('menu-zoom-in-btn');
   const zoomOutBtn = document.getElementById('menu-zoom-out-btn');
@@ -1535,14 +1571,88 @@ document.addEventListener('DOMContentLoaded', () => {
   const MENU_MAX_ZOOM = 4;
   const MENU_ZOOM_STEP = 0.5;
 
-  // Open Menu Modal
-  function openMenuModal(imgUrl, menuName) {
+  // Build progress dots + connecting lines
+  function buildProgressDots() {
+    if (!menuProgressBar) return;
+    menuProgressBar.innerHTML = '';
+    MENU_LIST.forEach((item, i) => {
+      // Connecting line before each dot (except the first)
+      if (i > 0) {
+        const line = document.createElement('div');
+        line.className = 'menu-progress-line';
+        line.dataset.lineIndex = i - 1;
+        menuProgressBar.appendChild(line);
+      }
+      const dot = document.createElement('button');
+      dot.className = 'menu-progress-dot';
+      dot.dataset.menuIndex = i;
+      dot.setAttribute('aria-label', `View ${item.name} menu`);
+      dot.title = item.name;
+      dot.addEventListener('click', () => navigateTo(i));
+      menuProgressBar.appendChild(dot);
+    });
+  }
+
+  // Refresh which dot is active and which lines are filled
+  function updateProgressDots(index) {
+    if (!menuProgressBar) return;
+    menuProgressBar.querySelectorAll('.menu-progress-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    menuProgressBar.querySelectorAll('.menu-progress-line').forEach((line, i) => {
+      // Fill lines to the left of (and up to) the active dot
+      line.classList.toggle('passed', i < index);
+    });
+  }
+
+  // Update disabled state for prev/next buttons
+  function updateNavButtons(index) {
+    if (menuNavPrev) menuNavPrev.disabled = index === 0;
+    if (menuNavNext) menuNavNext.disabled = index === MENU_LIST.length - 1;
+  }
+
+  // Navigate to a specific menu index with a crossfade
+  function navigateTo(index) {
+    if (index < 0 || index >= MENU_LIST.length) return;
+    currentMenuIndex = index;
+    const item = MENU_LIST[index];
+
+    // Crossfade: fade out, swap src, fade in
+    if (menuModalImg) {
+      menuModalImg.style.opacity = '0';
+      menuModalImg.style.transition = 'opacity 0.2s ease';
+      setTimeout(() => {
+        menuModalImg.src = item.url;
+        if (menuModalTitle) menuModalTitle.textContent = `${item.name} Menu`;
+        menuModalImg.onload = () => {
+          menuModalImg.style.opacity = '1';
+        };
+        // Fallback in case onload already fired (cached image)
+        if (menuModalImg.complete) menuModalImg.style.opacity = '1';
+      }, 200);
+    }
+
+    resetMenuZoom();
+    updateProgressDots(index);
+    updateNavButtons(index);
+  }
+
+  // Open Menu Modal (accepts an index into MENU_LIST)
+  function openMenuModal(index) {
+    buildProgressDots();
+    currentMenuIndex = (typeof index === 'number') ? index : 0;
+    const item = MENU_LIST[currentMenuIndex];
     menuLastActiveElement = document.activeElement;
-    if (menuModalImg) menuModalImg.src = imgUrl;
-    if (menuModalTitle) menuModalTitle.textContent = `${menuName} Menu`;
+    if (menuModalImg) {
+      menuModalImg.src = item.url;
+      menuModalImg.style.opacity = '1';
+    }
+    if (menuModalTitle) menuModalTitle.textContent = `${item.name} Menu`;
     
     // Reset zoom and translations
     resetMenuZoom();
+    updateProgressDots(currentMenuIndex);
+    updateNavButtons(currentMenuIndex);
     
     if (menuModal) {
       menuModal.style.display = 'flex';
@@ -1702,17 +1812,28 @@ document.addEventListener('DOMContentLoaded', () => {
     menuLastTranslateY = menuTranslateY;
   }
 
-  // Handle Menu Button Click
+  // Handle Menu Button Click — match clicked button to MENU_LIST index by href or text
   if (menuBtns.length > 0) {
     menuBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const imgUrl = btn.getAttribute('href');
-        const menuName = btn.textContent.trim();
-        openMenuModal(imgUrl, menuName);
+        const href = btn.getAttribute('href') || '';
+        const text = btn.textContent.trim();
+        // Try to find the index by matching url fragment or label
+        let idx = MENU_LIST.findIndex(m =>
+          href.includes(encodeURIComponent(m.name)) ||
+          href.includes(m.url) ||
+          text.toLowerCase().includes(m.name.toLowerCase())
+        );
+        if (idx === -1) idx = 0; // fallback
+        openMenuModal(idx);
       });
     });
   }
+
+  // Prev / Next Nav
+  if (menuNavPrev) menuNavPrev.addEventListener('click', () => navigateTo(currentMenuIndex - 1));
+  if (menuNavNext) menuNavNext.addEventListener('click', () => navigateTo(currentMenuIndex + 1));
 
   // Bind Close Events
   if (menuModalCloseBtn) menuModalCloseBtn.addEventListener('click', closeMenuModal);
@@ -1787,6 +1908,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') {
       closeMenuModal();
     }
+
+    // Arrow key navigation between menus
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      navigateTo(currentMenuIndex - 1);
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      navigateTo(currentMenuIndex + 1);
+    }
     
     // Trap Focus inside modal controls
     if (e.key === 'Tab') {
@@ -1814,40 +1945,8 @@ document.addEventListener('DOMContentLoaded', () => {
     menuModalCtaBtn.addEventListener('click', () => {
       closeMenuModal();
       
-      // Delay scrolling slightly so close transition completes cleanly
       setTimeout(() => {
-        const isMobile = window.innerWidth <= 992;
-        const heroSection = document.getElementById('hero');
-        const targetElement = (isMobile && bookingWidget) ? bookingWidget : (heroSection || bookingWidget);
-        
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-          
-          // Trigger highlight/glow effect after scroll
-          let scrollTimeout;
-          const scrollHandler = () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-              window.removeEventListener('scroll', scrollHandler);
-              bookingWidget.classList.add('highlight-widget');
-              setTimeout(() => {
-                bookingWidget.classList.remove('highlight-widget');
-              }, 2000);
-            }, 100);
-          };
-          
-          window.addEventListener('scroll', scrollHandler);
-          
-          // Fallback if already there
-          const expectedOffset = (targetElement === bookingWidget) ? 100 : 0;
-          if (Math.abs(targetElement.getBoundingClientRect().top - expectedOffset) < 50) {
-            window.removeEventListener('scroll', scrollHandler);
-            bookingWidget.classList.add('highlight-widget');
-            setTimeout(() => {
-              bookingWidget.classList.remove('highlight-widget');
-            }, 2000);
-          }
-        }
+        scrollToBookingWidget(true);
       }, 350);
     });
   }
