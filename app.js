@@ -1950,4 +1950,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 350);
     });
   }
+
+  /* ==========================================
+     MOBILE STICKY FOOTER — HIDE WHEN FORM IS VISIBLE
+     ========================================== */
+  const mobileStickyFooter = document.querySelector('.mobile-sticky-footer');
+  const bookingWidgetEl = document.querySelector('.booking-widget');
+
+  if (mobileStickyFooter && bookingWidgetEl) {
+    const stickyFooterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          mobileStickyFooter.classList.add('hidden');
+        } else {
+          mobileStickyFooter.classList.remove('hidden');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    stickyFooterObserver.observe(bookingWidgetEl);
+  }
 });

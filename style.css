@@ -255,7 +255,7 @@ img {
 }
 
 .logo-img {
-  height: clamp(50px, 6vw, 72px);
+  height: clamp(60px, 8vw, 90px);
   width: auto;
   display: block;
   transition: var(--transition);
@@ -942,6 +942,8 @@ img {
   display: block;
   object-fit: cover;
   border-top: 1px solid rgba(197, 168, 128, 0.4);
+  transform: scale(1.3);
+  transform-origin: center center;
 }
 
 /* ==========================================
@@ -1019,18 +1021,18 @@ img {
 }
 
 .fp-room-name {
-  font-size: 15px;
+  font-size: 19px;
 }
 
 .fp-room-subtitle {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
   fill: var(--text-light);
 }
 
 .fp-room-sublabel {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
   fill: var(--accent-dark);
   pointer-events: none;
@@ -1047,7 +1049,7 @@ img {
 
 .fp-lobby-label {
   font-family: var(--font-headings);
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 600;
   fill: var(--accent-dark);
   text-anchor: middle;
@@ -1056,7 +1058,7 @@ img {
 
 .fp-lobby-sublabel {
   font-family: var(--font-body);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
   fill: var(--text-light);
   text-anchor: middle;
@@ -2094,8 +2096,8 @@ h3.explore-details-title {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  height: 100%;
-  min-height: 220px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
@@ -2103,6 +2105,7 @@ h3.explore-details-title {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   position: absolute;
   top: 0;
   left: 0;
@@ -3044,7 +3047,7 @@ textarea.form-input {
 }
 
 .footer-logo .logo-img {
-  height: clamp(52px, 6vw, 76px);
+  height: clamp(64px, 8vw, 96px);
 }
 
 .footer-logo .logo-text {
@@ -3191,6 +3194,13 @@ textarea.form-input {
   z-index: 999;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.mobile-sticky-footer.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(100px);
 }
 
 .mobile-footer-btn {
@@ -3254,7 +3264,7 @@ textarea.form-input {
   }
   
   .catering-image-wrapper {
-    min-height: 350px;
+    min-height: auto;
   }
   
   .catering-main-title {
