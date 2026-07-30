@@ -483,8 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tagline: 'Warm. Inviting. Perfect for intimate events.',
       dimensions: '40 × 60 ft',
       widthFt: 40,
-      banquet: 120,
-      theater: 230,
+      banquet: 95,
+      theater: 200,
       description: 'Warm, inviting, and perfect for intimate events. The Honeysuckle Room offers a refined space ideal for bridal showers, small weddings, workshops, and private meetings.',
       perfectFor: ['Bridal & Baby Showers', 'Birthday Celebrations', 'Small Weddings', 'Meetings', 'Workshops', 'Training Sessions'],
       images: [
@@ -498,8 +498,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tagline: 'Spacious. Impressive. Perfect for large gatherings.',
       dimensions: '62 × 60 ft',
       widthFt: 62,
-      banquet: 210,
-      theater: 500,
+      banquet: 220,
+      theater: 470,
       description: 'Spacious, impressive, and perfect for large gatherings. The Magnolia Room delivers a grand atmosphere for weddings, conferences, galas, and corporate events.',
       perfectFor: ['Weddings', 'Conferences', 'Galas', 'Large Community Events', 'Banquets', 'Corporate Events'],
       images: [
@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dimensions: '35 × 60 ft',
       widthFt: 35,
       banquet: 120,
-      theater: 230,
+      theater: 260,
       description: 'Versatile, comfortable, and great for focused gatherings. The Blues Room is an excellent choice for corporate meetings, birthday parties, receptions, and training seminars.',
       perfectFor: ['Corporate Meetings', 'Birthday Parties', 'Receptions', 'Training Seminars', 'Workshops'],
       images: [
@@ -528,8 +528,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tagline: 'Elegant. Functional. Made for bigger celebrations.',
       dimensions: '55 × 60 ft',
       widthFt: 55,
-      banquet: 210,
-      theater: 500,
+      banquet: 195,
+      theater: 420,
       description: 'Elegant, functional, and made for bigger celebrations. The Harmony Room provides ample space for corporate celebrations, large receptions, banquets, and community events.',
       perfectFor: ['Corporate Celebrations', 'Large Receptions', 'Banquets', 'Community Events', 'Holiday Parties'],
       images: [
